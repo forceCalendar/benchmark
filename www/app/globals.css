@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --fc-primary: #3b82f6;
+  --fc-secondary: #10b981;
+  --full-primary: #f59e0b;
+}
+
+body {
+  @apply bg-gray-950 text-gray-100;
+}
+
+.card {
+  @apply bg-gray-900 rounded-xl border border-gray-800 p-6;
+}
+
+.btn {
+  @apply px-4 py-2 rounded-lg font-medium transition-colors;
+}
+
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white;
+}
+
+.stat-card {
+  @apply bg-gray-900 rounded-xl border border-gray-800 p-6 text-center;
+}
+
+.stat-value {
+  @apply text-4xl font-bold text-white;
+}
+
+.stat-label {
+  @apply text-gray-400 text-sm mt-1;
+}
+
+.winner {
+  @apply text-emerald-400;
+}
+
+.loser {
+  @apply text-amber-400;
+}
