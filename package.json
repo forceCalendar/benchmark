@@ -1,0 +1,27 @@
+{
+  "name": "@forcecalendar/benchmark",
+  "version": "1.0.0",
+  "description": "Performance benchmarks comparing ForceCalendar vs FullCalendar",
+  "type": "module",
+  "scripts": {
+    "benchmark": "node src/runner.js",
+    "benchmark:rendering": "node src/benchmarks/rendering.js",
+    "benchmark:memory": "node src/benchmarks/memory.js",
+    "benchmark:recurrence": "node src/benchmarks/recurrence.js",
+    "benchmark:search": "node src/benchmarks/search.js",
+    "benchmark:bundle": "node src/benchmarks/bundle-size.js"
+  },
+  "dependencies": {
+    "@forcecalendar/core": "^2.1.0",
+    "@fullcalendar/core": "^6.1.0",
+    "@fullcalendar/daygrid": "^6.1.0",
+    "@fullcalendar/timegrid": "^6.1.0",
+    "@fullcalendar/list": "^6.1.0",
+    "@fullcalendar/rrule": "^6.1.0",
+    "rrule": "^2.7.0"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0",
+    "tinybench": "^2.6.0"
+  }
+}
