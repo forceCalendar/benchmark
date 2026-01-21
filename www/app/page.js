@@ -5,7 +5,16 @@ import { RenderingChart, MemoryChart, RecurrenceChart, BundleSizeChart } from '.
 import { LiveBenchmark } from '../components/LiveBenchmark';
 
 export default function Home() {
-  const { rendering, memory, recurrence, bundleSize, features } = benchmarkResults;
+  const { rendering, memory, recurrence, bundleSize, features, versions, timestamp } = benchmarkResults;
+
+  // Format the timestamp for display
+  const lastUpdated = timestamp ? new Date(timestamp).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }) : null;
 
   // Calculate summary stats
   const render10k = rendering.find(r => r.events === 10000);
@@ -26,6 +35,18 @@ export default function Home() {
           <p className="text-xl text-gray-400">
             Performance Benchmark Comparison
           </p>
+          {versions && (
+            <div className="mt-4 text-sm text-gray-500">
+              <span className="text-blue-400">@forcecalendar/core@{versions['@forcecalendar/core']}</span>
+              <span className="mx-2">vs</span>
+              <span className="text-amber-400">@fullcalendar/core@{versions['@fullcalendar/core']}</span>
+            </div>
+          )}
+          {lastUpdated && (
+            <p className="mt-2 text-xs text-gray-600">
+              Last updated: {lastUpdated}
+            </p>
+          )}
         </div>
 
         {/* Summary Stats */}

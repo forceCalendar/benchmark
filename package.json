@@ -9,7 +9,9 @@
     "benchmark:memory": "node src/benchmarks/memory.js",
     "benchmark:recurrence": "node src/benchmarks/recurrence.js",
     "benchmark:search": "node src/benchmarks/search.js",
-    "benchmark:bundle": "node src/benchmarks/bundle-size.js"
+    "benchmark:bundle": "node src/benchmarks/bundle-size.js",
+    "update-dashboard": "node src/update-dashboard.js",
+    "benchmark:full": "npm run benchmark && npm run update-dashboard"
   },
   "dependencies": {
     "@forcecalendar/core": "^2.1.0",

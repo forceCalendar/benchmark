@@ -1,0 +1,155 @@
+name: Automated Benchmark
+
+on:
+  # Triggered by core or interface after publishing
+  repository_dispatch:
+    types: [package-published]
+
+  # Weekly scheduled run (Sundays at 00:00 UTC)
+  schedule:
+    - cron: '0 0 * * 0'
+
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: 'Force update all packages to latest'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+        cache-dependency-path: package-lock.json
+
+    - name: Log trigger information
+      run: |
+        echo "Trigger: ${{ github.event_name }}"
+        if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
+          echo "Source: ${{ github.event.client_payload.source }}"
+          echo "Version: ${{ github.event.client_payload.version }}"
+        fi
+
+    - name: Update to latest npm packages
+      run: |
+        echo "Fetching latest versions from npm..."
+
+        # Get latest versions
+        CORE_VERSION=$(npm view @forcecalendar/core version)
+        INTERFACE_VERSION=$(npm view @forcecalendar/interface version 2>/dev/null || echo "not-published")
+        FULLCALENDAR_VERSION=$(npm view @fullcalendar/core version)
+
+        echo "Latest versions:"
+        echo "  @forcecalendar/core: $CORE_VERSION"
+        echo "  @forcecalendar/interface: $INTERFACE_VERSION"
+        echo "  @fullcalendar/core: $FULLCALENDAR_VERSION"
+
+        # Update package.json with latest versions
+        npm pkg set dependencies.@forcecalendar/core="^$CORE_VERSION"
+        npm pkg set dependencies.@fullcalendar/core="^$FULLCALENDAR_VERSION"
+
+        # Clean install with latest
+        rm -rf node_modules package-lock.json
+        npm install
+
+        # Verify installed versions
+        echo ""
+        echo "Installed versions:"
+        npm ls @forcecalendar/core @fullcalendar/core --depth=0
+
+    - name: Run benchmarks
+      run: npm run benchmark
+      env:
+        NODE_OPTIONS: '--max-old-space-size=4096'
+
+    - name: Add trigger metadata to results
+      run: |
+        node -e "
+          const fs = require('fs');
+          const results = JSON.parse(fs.readFileSync('results/latest.json', 'utf8'));
+
+          // Add trigger info
+          results.trigger = {
+            event: '${{ github.event_name }}',
+            source: '${{ github.event.client_payload.source || 'manual/scheduled' }}',
+            runId: '${{ github.run_id }}',
+            runUrl: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+          };
+
+          fs.writeFileSync('results/latest.json', JSON.stringify(results, null, 2));
+          console.log('Added trigger metadata to results');
+        "
+
+    - name: Update dashboard data
+      run: npm run update-dashboard
+
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
+    - name: Commit and push results
+      run: |
+        git add results/latest.json www/data/
+
+        # Check if there are changes to commit
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          CORE_VER=$(node -e "console.log(require('./node_modules/@forcecalendar/core/package.json').version)")
+          FC_VER=$(node -e "console.log(require('./node_modules/@fullcalendar/core/package.json').version)")
+
+          git commit -m "Benchmark results: core@$CORE_VER vs fullcalendar@$FC_VER
+
+          Triggered by: ${{ github.event_name }}
+          Run: ${{ github.run_id }}"
+
+          git push origin HEAD
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build dashboard
+      working-directory: www
+      run: |
+        npm ci
+        npm run build
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: www/out
+
+  deploy-dashboard:
+    needs: benchmark
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

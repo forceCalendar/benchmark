@@ -4,9 +4,10 @@
  * Runs all benchmarks and generates a comprehensive report
  */
 
-import { writeFileSync } from 'fs';
+import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
 
 import { runBenchmark as runRendering } from './benchmarks/rendering.js';
 import { runBenchmark as runMemory } from './benchmarks/memory.js';
@@ -15,6 +16,37 @@ import { runBenchmark as runSearch } from './benchmarks/search.js';
 import { runBenchmark as runBundleSize } from './benchmarks/bundle-size.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
+
+/**
+ * Get installed package versions
+ */
+function getPackageVersions() {
+  const versions = {};
+
+  try {
+    const fcCore = require('@forcecalendar/core/package.json');
+    versions['@forcecalendar/core'] = fcCore.version;
+  } catch {
+    versions['@forcecalendar/core'] = 'not-installed';
+  }
+
+  try {
+    const fullCal = require('@fullcalendar/core/package.json');
+    versions['@fullcalendar/core'] = fullCal.version;
+  } catch {
+    versions['@fullcalendar/core'] = 'not-installed';
+  }
+
+  try {
+    const rrule = require('rrule/package.json');
+    versions['rrule'] = rrule.version;
+  } catch {
+    versions['rrule'] = 'not-installed';
+  }
+
+  return versions;
+}
 
 async function main() {
   console.log('\n');
@@ -25,8 +57,16 @@ async function main() {
   console.log('╚══════════════════════════════════════════════════════════╝');
   console.log('\n');
 
+  const versions = getPackageVersions();
+  console.log('Package versions:');
+  Object.entries(versions).forEach(([pkg, ver]) => {
+    console.log(`  ${pkg}: ${ver}`);
+  });
+  console.log('');
+
   const results = {
     timestamp: new Date().toISOString(),
+    versions,
     environment: {
       node: process.version,
       platform: process.platform,
