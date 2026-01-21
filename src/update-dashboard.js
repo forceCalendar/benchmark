@@ -34,80 +34,48 @@ function main() {
   // Generate JS file content
   const jsContent = `// Auto-generated benchmark results
 // Last updated: ${results.timestamp}
-// Versions: ${JSON.stringify(results.versions || {})}
 
 export const benchmarkResults = ${JSON.stringify(dashboardData, null, 2)};
 `;
 
   writeFileSync(outputPath, jsContent);
   console.log('Dashboard data updated:', outputPath);
-
-  // Also save metadata
-  const metadataPath = join(outputDir, 'metadata.json');
-  writeFileSync(metadataPath, JSON.stringify({
-    lastUpdated: results.timestamp,
-    versions: results.versions || {},
-    environment: results.environment,
-    trigger: results.trigger || { event: 'manual' },
-  }, null, 2));
-  console.log('Metadata updated:', metadataPath);
 }
 
 function transformResults(results) {
   const benchmarks = results.benchmarks || {};
 
-  // Transform rendering results
-  const rendering = (benchmarks.rendering || []).map(r => ({
-    events: r.eventCount,
-    forceCalendar: Math.round(r.forceCalendar?.opsPerSec || 0),
-    fullCalendar: Math.round(r.fullCalendar?.opsPerSec || 0),
-  }));
+  // Transform bundle size
+  const bundleSizeData = benchmarks.bundleSize || {};
 
-  // Transform memory results (convert bytes to KB)
-  const memory = (benchmarks.memory || []).map(r => ({
-    events: r.eventCount,
-    forceCalendar: Math.round((r.forceCalendar?.heapUsed || 0) / 1024),
-    fullCalendar: Math.round((r.fullCalendar?.heapUsed || 0) / 1024),
-  }));
+  const bundleSize = {
+    forceCalendar: (bundleSizeData.forceCalendar || []).map(p => ({
+      package: p.package,
+      version: p.version,
+      size: p.size,
+    })),
+    fullCalendar: (bundleSizeData.fullCalendar || []).map(p => ({
+      package: p.package,
+      version: p.version,
+      size: p.size,
+    })),
+    totals: bundleSizeData.totals || {},
+  };
 
   // Transform recurrence results
   const recurrence = (benchmarks.recurrence || []).map(r => ({
-    scenario: r.testCase || r.name,
+    scenario: r.testCase,
     forceCalendar: Math.round(r.forceCalendar?.opsPerSec || 0),
-    fullCalendar: Math.round(r.rrule?.opsPerSec || 0),
+    rrule: Math.round(r.rrule?.opsPerSec || 0),
+    occurrences: r.occurrences,
   }));
-
-  // Transform bundle size - handle array format
-  const bundleSizeData = benchmarks.bundleSize || {};
-  const packages = bundleSizeData.packages || [];
-
-  // Find packages by name
-  const findPkg = (name) => packages.find(p => p.package === name);
-
-  const bundleSize = {
-    forceCalendar: {
-      core: Math.round((findPkg('@forcecalendar/core')?.installedSize || 0) / 1024),
-      total: Math.round((bundleSizeData.totals?.forceCalendar || 0) / 1024),
-    },
-    fullCalendar: {
-      core: Math.round((findPkg('@fullcalendar/core')?.installedSize || 0) / 1024),
-      daygrid: Math.round((findPkg('@fullcalendar/daygrid')?.installedSize || 0) / 1024),
-      timegrid: Math.round((findPkg('@fullcalendar/timegrid')?.installedSize || 0) / 1024),
-      list: Math.round((findPkg('@fullcalendar/list')?.installedSize || 0) / 1024),
-      rrule: Math.round((findPkg('@fullcalendar/rrule')?.installedSize || 0) / 1024),
-      rruleLib: Math.round((findPkg('rrule')?.installedSize || 0) / 1024),
-      total: Math.round((bundleSizeData.totals?.fullCalendar || 0) / 1024),
-    },
-  };
 
   return {
     timestamp: results.timestamp,
     versions: results.versions || {},
     environment: results.environment,
-    rendering,
-    memory,
-    recurrence,
     bundleSize,
+    recurrence,
   };
 }
 

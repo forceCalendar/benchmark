@@ -1,11 +1,16 @@
 /**
  * Recurrence Expansion Benchmark
  *
- * Measures time to expand recurring events into individual occurrences
+ * Compares RRULE expansion performance:
+ * - ForceCalendar: RecurrenceEngine (built-in)
+ * - rrule: The rrule library (what FullCalendar uses via @fullcalendar/rrule)
+ *
+ * This is a fair comparison - both are pure JavaScript RRULE parsers.
  */
 
 import { Bench } from 'tinybench';
-import { RRule } from 'rrule';
+import pkg from 'rrule';
+const { RRule } = pkg;
 import { RecurrenceEngine } from '../setup/forcecalendar.js';
 
 const TEST_CASES = [
@@ -91,8 +96,8 @@ async function runBenchmark() {
       RecurrenceEngine.expandEvent(fcEvent, rangeStart, rangeEnd, 2000);
     });
 
-    // RRule library (used by FullCalendar)
-    bench.add('rrule (FullCalendar)', () => {
+    // RRule library
+    bench.add('rrule', () => {
       rrule.between(rangeStart, rangeEnd, true);
     });
 

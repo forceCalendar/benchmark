@@ -1,99 +1,119 @@
 // Auto-generated benchmark results
-// Last updated: 2026-01-19T10:22:29.268Z
-// Versions: {}
+// Last updated: 2026-01-21T11:47:18.648Z
 
 export const benchmarkResults = {
-  "timestamp": "2026-01-19T10:22:29.268Z",
-  "versions": {},
+  "timestamp": "2026-01-21T11:47:18.648Z",
+  "versions": {
+    "@forcecalendar/core": null,
+    "@forcecalendar/interface": null,
+    "@fullcalendar/core": "6.1.20",
+    "@fullcalendar/daygrid": "6.1.20",
+    "@fullcalendar/timegrid": "6.1.20",
+    "@fullcalendar/list": "6.1.20",
+    "@fullcalendar/rrule": "6.1.20",
+    "rrule": "2.8.1"
+  },
   "environment": {
-    "node": "v22.18.0",
+    "node": "v20.19.6",
     "platform": "linux",
     "arch": "x64"
   },
-  "rendering": [
-    {
-      "events": 100,
-      "forceCalendar": 74,
-      "fullCalendar": 12
-    },
-    {
-      "events": 1000,
-      "forceCalendar": 9,
-      "fullCalendar": 11
-    },
-    {
-      "events": 5000,
-      "forceCalendar": 2,
-      "fullCalendar": 4
-    },
-    {
-      "events": 10000,
-      "forceCalendar": 1,
-      "fullCalendar": 2
+  "bundleSize": {
+    "forceCalendar": [
+      {
+        "package": "@forcecalendar/core",
+        "version": null,
+        "size": 309372
+      },
+      {
+        "package": "@forcecalendar/interface",
+        "version": null,
+        "size": 1567139
+      }
+    ],
+    "fullCalendar": [
+      {
+        "package": "@fullcalendar/core",
+        "version": "6.1.20",
+        "size": 1877007
+      },
+      {
+        "package": "@fullcalendar/daygrid",
+        "version": "6.1.20",
+        "size": 202194
+      },
+      {
+        "package": "@fullcalendar/timegrid",
+        "version": "6.1.20",
+        "size": 237205
+      },
+      {
+        "package": "@fullcalendar/list",
+        "version": "6.1.20",
+        "size": 68293
+      },
+      {
+        "package": "@fullcalendar/rrule",
+        "version": "6.1.20",
+        "size": 26791
+      },
+      {
+        "package": "rrule",
+        "version": "2.8.1",
+        "size": 687245
+      }
+    ],
+    "totals": {
+      "forceCalendar": 1876511,
+      "fullCalendar": 3098735,
+      "ratio": 1.6513279165429886
     }
-  ],
-  "memory": [
-    {
-      "events": 1000,
-      "forceCalendar": 5223,
-      "fullCalendar": 6889
-    },
-    {
-      "events": 5000,
-      "forceCalendar": 5268,
-      "fullCalendar": 13523
-    },
-    {
-      "events": 10000,
-      "forceCalendar": 11685,
-      "fullCalendar": 13781
-    },
-    {
-      "events": 50000,
-      "forceCalendar": 60294,
-      "fullCalendar": 66100
-    }
-  ],
+  },
   "recurrence": [
     {
       "scenario": "Daily for 1 year",
-      "forceCalendar": 1482,
-      "fullCalendar": 21964
+      "forceCalendar": 1100,
+      "rrule": 21052,
+      "occurrences": {
+        "forceCalendar": 364,
+        "rrule": 364
+      }
     },
     {
       "scenario": "Weekly (MWF) for 1 year",
-      "forceCalendar": 1215,
-      "fullCalendar": 48131
+      "forceCalendar": 1460,
+      "rrule": 57233,
+      "occurrences": {
+        "forceCalendar": 155,
+        "rrule": 156
+      }
     },
     {
       "scenario": "Monthly (15th) for 5 years",
-      "forceCalendar": 4778,
-      "fullCalendar": 127337
+      "forceCalendar": 3588,
+      "rrule": 161825,
+      "occurrences": {
+        "forceCalendar": 60,
+        "rrule": 60
+      }
     },
     {
       "scenario": "Yearly for 10 years",
-      "forceCalendar": 40501,
-      "fullCalendar": 653866
+      "forceCalendar": 44921,
+      "rrule": 939418,
+      "occurrences": {
+        "forceCalendar": 9,
+        "rrule": 9
+      }
     },
     {
       "scenario": "Daily for 5 years (1825 occurrences)",
       "forceCalendar": 6,
-      "fullCalendar": 4720
+      "rrule": 5445,
+      "occurrences": {
+        "forceCalendar": 1824,
+        "rrule": 1824
+      }
     }
-  ],
-  "bundleSize": {
-    "forceCalendar": {
-      "core": 302,
-      "total": 302
-    },
-    "fullCalendar": {
-      "core": 1833,
-      "daygrid": 197,
-      "timegrid": 232,
-      "list": 67,
-      "rrule": 26,
-      "rruleLib": 671,
-      "total": 3026
-    }
-  }
+  ]
 };
