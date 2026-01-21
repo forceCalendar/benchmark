@@ -3,37 +3,34 @@
 @tailwind utilities;
 
 :root {
-  --fc-primary: #3b82f6;
-  --fc-secondary: #10b981;
-  --full-primary: #f59e0b;
+  --mono: 'SF Mono', 'Fira Code', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
 }
 
 body {
-  @apply bg-gray-950 text-gray-100;
+  @apply bg-zinc-950 text-zinc-300;
+  font-family: var(--mono);
+  font-size: 13px;
 }
 
-.card {
-  @apply bg-gray-900 rounded-xl border border-gray-800 p-6;
+/* Tables */
+table {
+  @apply w-full border-collapse;
 }
 
-.btn {
-  @apply px-4 py-2 rounded-lg font-medium transition-colors;
+th {
+  @apply text-left text-zinc-500 font-normal py-2 px-3 border-b border-zinc-800;
 }
 
-.btn-primary {
-  @apply bg-blue-600 hover:bg-blue-700 text-white;
+td {
+  @apply py-2 px-3 border-b border-zinc-900;
 }
 
-.stat-card {
-  @apply bg-gray-900 rounded-xl border border-gray-800 p-6 text-center;
+tr:hover td {
+  @apply bg-zinc-900/50;
 }
 
-.stat-value {
-  @apply text-4xl font-bold text-white;
-}
-
-.stat-label {
-  @apply text-gray-400 text-sm mt-1;
+.num {
+  @apply text-right font-mono;
 }
 
 .winner {
@@ -41,5 +38,79 @@ body {
 }
 
 .loser {
-  @apply text-amber-400;
+  @apply text-zinc-500;
+}
+
+/* Section headers */
+.section-header {
+  @apply text-zinc-500 text-xs uppercase tracking-wider mb-3 flex items-center gap-2;
+}
+
+.section-header::after {
+  content: '';
+  @apply flex-1 border-b border-zinc-800;
+}
+
+/* Cards */
+.panel {
+  @apply bg-zinc-900/50 border border-zinc-800 rounded-lg p-4;
+}
+
+/* Code-like values */
+.code {
+  @apply font-mono text-zinc-100;
+}
+
+/* Charts container */
+.chart-container {
+  @apply h-64;
+}
+
+/* Metric display */
+.metric {
+  @apply text-2xl font-mono text-zinc-100;
+}
+
+.metric-label {
+  @apply text-xs text-zinc-500 uppercase tracking-wider;
+}
+
+/* Status indicators */
+.status-good {
+  @apply text-emerald-400;
+}
+
+.status-bad {
+  @apply text-red-400;
+}
+
+.status-neutral {
+  @apply text-zinc-400;
+}
+
+/* Links */
+a {
+  @apply text-blue-400 hover:text-blue-300 underline underline-offset-2;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-zinc-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-zinc-700 rounded;
+}
+
+/* Select */
+select {
+  @apply bg-zinc-900 border border-zinc-700 rounded px-2 py-1 text-zinc-300 text-sm;
+}
+
+button {
+  @apply bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-zinc-300 text-sm hover:bg-zinc-700 transition-colors disabled:opacity-50;
 }

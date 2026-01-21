@@ -1,0 +1,12 @@
+{
+  "lastUpdated": "2026-01-19T10:22:29.268Z",
+  "versions": {},
+  "environment": {
+    "node": "v22.18.0",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "trigger": {
+    "event": "manual"
+  }
+}

@@ -1,16 +1,14 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'ForceCalendar vs FullCalendar - Performance Benchmark',
-  description: 'Compare performance metrics between ForceCalendar and FullCalendar',
+  title: 'forceCalendar Benchmark',
+  description: 'Performance benchmarks for @forcecalendar/core',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="min-h-screen">
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

@@ -4,6 +4,7 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
+  LogarithmicScale,
   BarElement,
   LineElement,
   PointElement,
@@ -16,6 +17,7 @@ import { Bar, Line } from 'react-chartjs-2';
 ChartJS.register(
   CategoryScale,
   LinearScale,
+  LogarithmicScale,
   BarElement,
   LineElement,
   PointElement,
@@ -24,62 +26,95 @@ ChartJS.register(
   Legend
 );
 
-const fcColor = 'rgb(59, 130, 246)';
-const fcColorLight = 'rgba(59, 130, 246, 0.7)';
-const fullColor = 'rgb(245, 158, 11)';
-const fullColorLight = 'rgba(245, 158, 11, 0.7)';
+const colors = {
+  fc: {
+    line: '#10b981',
+    fill: 'rgba(16, 185, 129, 0.1)',
+    bar: 'rgba(16, 185, 129, 0.7)',
+  },
+  full: {
+    line: '#6b7280',
+    fill: 'rgba(107, 114, 128, 0.1)',
+    bar: 'rgba(107, 114, 128, 0.5)',
+  },
+};
 
-const commonOptions = {
+const baseOptions = {
   responsive: true,
   maintainAspectRatio: false,
+  interaction: {
+    intersect: false,
+    mode: 'index',
+  },
   plugins: {
     legend: {
+      position: 'bottom',
       labels: {
-        color: '#9ca3af',
+        color: '#71717a',
+        font: { family: 'monospace', size: 11 },
+        boxWidth: 12,
+        padding: 16,
       },
+    },
+    tooltip: {
+      backgroundColor: '#18181b',
+      borderColor: '#3f3f46',
+      borderWidth: 1,
+      titleColor: '#fafafa',
+      bodyColor: '#a1a1aa',
+      titleFont: { family: 'monospace', size: 12 },
+      bodyFont: { family: 'monospace', size: 11 },
+      padding: 10,
+      displayColors: true,
     },
   },
   scales: {
     x: {
-      ticks: { color: '#9ca3af' },
-      grid: { color: '#374151' },
+      ticks: { color: '#71717a', font: { family: 'monospace', size: 10 } },
+      grid: { color: '#27272a', drawBorder: false },
     },
     y: {
-      ticks: { color: '#9ca3af' },
-      grid: { color: '#374151' },
+      ticks: { color: '#71717a', font: { family: 'monospace', size: 10 } },
+      grid: { color: '#27272a', drawBorder: false },
     },
   },
 };
 
 export function RenderingChart({ data }) {
+  if (!data || data.length === 0) return <div className="text-zinc-500">No data</div>;
+
   const chartData = {
-    labels: data.map(d => `${d.events.toLocaleString()} events`),
+    labels: data.map(d => d.events?.toLocaleString() || d.eventCount?.toLocaleString()),
     datasets: [
       {
-        label: 'ForceCalendar',
+        label: '@forcecalendar/core',
         data: data.map(d => d.forceCalendar),
-        backgroundColor: fcColorLight,
-        borderColor: fcColor,
-        borderWidth: 2,
+        backgroundColor: colors.fc.bar,
+        borderColor: colors.fc.line,
+        borderWidth: 1,
       },
       {
-        label: 'FullCalendar',
+        label: '@fullcalendar/core',
         data: data.map(d => d.fullCalendar),
-        backgroundColor: fullColorLight,
-        borderColor: fullColor,
-        borderWidth: 2,
+        backgroundColor: colors.full.bar,
+        borderColor: colors.full.line,
+        borderWidth: 1,
       },
     ],
   };
 
   const options = {
-    ...commonOptions,
-    plugins: {
-      ...commonOptions.plugins,
-      title: {
-        display: true,
-        text: 'Rendering Performance (ops/sec) - Higher is Better',
-        color: '#fff',
+    ...baseOptions,
+    scales: {
+      ...baseOptions.scales,
+      y: {
+        ...baseOptions.scales.y,
+        title: {
+          display: true,
+          text: 'ops/sec',
+          color: '#71717a',
+          font: { family: 'monospace', size: 10 },
+        },
       },
     },
   };
@@ -88,34 +123,46 @@ export function RenderingChart({ data }) {
 }
 
 export function MemoryChart({ data }) {
+  if (!data || data.length === 0) return <div className="text-zinc-500">No data</div>;
+
   const chartData = {
-    labels: data.map(d => `${d.events.toLocaleString()} events`),
+    labels: data.map(d => d.events?.toLocaleString() || d.eventCount?.toLocaleString()),
     datasets: [
       {
-        label: 'ForceCalendar',
+        label: '@forcecalendar/core',
         data: data.map(d => d.forceCalendar),
-        borderColor: fcColor,
-        backgroundColor: fcColorLight,
+        borderColor: colors.fc.line,
+        backgroundColor: colors.fc.fill,
+        fill: true,
         tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: colors.fc.line,
       },
       {
-        label: 'FullCalendar',
+        label: '@fullcalendar/core',
         data: data.map(d => d.fullCalendar),
-        borderColor: fullColor,
-        backgroundColor: fullColorLight,
+        borderColor: colors.full.line,
+        backgroundColor: colors.full.fill,
+        fill: true,
         tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: colors.full.line,
       },
     ],
   };
 
   const options = {
-    ...commonOptions,
-    plugins: {
-      ...commonOptions.plugins,
-      title: {
-        display: true,
-        text: 'Memory Usage (KB) - Lower is Better',
-        color: '#fff',
+    ...baseOptions,
+    scales: {
+      ...baseOptions.scales,
+      y: {
+        ...baseOptions.scales.y,
+        title: {
+          display: true,
+          text: 'KB',
+          color: '#71717a',
+          font: { family: 'monospace', size: 10 },
+        },
       },
     },
   };
@@ -124,35 +171,41 @@ export function MemoryChart({ data }) {
 }
 
 export function RecurrenceChart({ data }) {
+  if (!data || data.length === 0) return <div className="text-zinc-500">No data</div>;
+
   const chartData = {
-    labels: data.map(d => d.scenario),
+    labels: data.map(d => d.scenario || d.name),
     datasets: [
       {
-        label: 'ForceCalendar',
+        label: '@forcecalendar/core',
         data: data.map(d => d.forceCalendar),
-        backgroundColor: fcColorLight,
-        borderColor: fcColor,
-        borderWidth: 2,
+        backgroundColor: colors.fc.bar,
+        borderColor: colors.fc.line,
+        borderWidth: 1,
       },
       {
-        label: 'FullCalendar (rrule)',
+        label: 'rrule',
         data: data.map(d => d.fullCalendar),
-        backgroundColor: fullColorLight,
-        borderColor: fullColor,
-        borderWidth: 2,
+        backgroundColor: colors.full.bar,
+        borderColor: colors.full.line,
+        borderWidth: 1,
       },
     ],
   };
 
   const options = {
-    ...commonOptions,
+    ...baseOptions,
     indexAxis: 'y',
-    plugins: {
-      ...commonOptions.plugins,
-      title: {
-        display: true,
-        text: 'Recurrence Expansion (ops/sec) - Higher is Better',
-        color: '#fff',
+    scales: {
+      ...baseOptions.scales,
+      x: {
+        ...baseOptions.scales.x,
+        title: {
+          display: true,
+          text: 'ops/sec',
+          color: '#71717a',
+          font: { family: 'monospace', size: 10 },
+        },
       },
     },
   };
@@ -161,30 +214,43 @@ export function RecurrenceChart({ data }) {
 }
 
 export function BundleSizeChart({ data }) {
+  if (!data) return <div className="text-zinc-500">No data</div>;
+
+  const fcPkgs = data.forceCalendar || {};
+  const fullPkgs = data.fullCalendar || {};
+
   const chartData = {
-    labels: ['ForceCalendar', 'FullCalendar'],
+    labels: ['Total Size'],
     datasets: [
       {
-        label: 'Bundle Size (KB)',
-        data: [data.forceCalendar.total, data.fullCalendar.total],
-        backgroundColor: [fcColorLight, fullColorLight],
-        borderColor: [fcColor, fullColor],
-        borderWidth: 2,
+        label: '@forcecalendar/core',
+        data: [fcPkgs.total || 0],
+        backgroundColor: colors.fc.bar,
+        borderColor: colors.fc.line,
+        borderWidth: 1,
+      },
+      {
+        label: '@fullcalendar/* stack',
+        data: [fullPkgs.total || 0],
+        backgroundColor: colors.full.bar,
+        borderColor: colors.full.line,
+        borderWidth: 1,
       },
     ],
   };
 
   const options = {
-    ...commonOptions,
-    plugins: {
-      ...commonOptions.plugins,
-      title: {
-        display: true,
-        text: 'Total Bundle Size (KB) - Lower is Better',
-        color: '#fff',
-      },
-      legend: {
-        display: false,
+    ...baseOptions,
+    scales: {
+      ...baseOptions.scales,
+      y: {
+        ...baseOptions.scales.y,
+        title: {
+          display: true,
+          text: 'KB',
+          color: '#71717a',
+          font: { family: 'monospace', size: 10 },
+        },
       },
     },
   };

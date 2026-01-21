@@ -37,14 +37,6 @@ function main() {
 // Versions: ${JSON.stringify(results.versions || {})}
 
 export const benchmarkResults = ${JSON.stringify(dashboardData, null, 2)};
-
-// Calculate speedup ratios
-export function calculateSpeedup(fc, full, higherIsBetter = true) {
-  if (higherIsBetter) {
-    return (fc / full).toFixed(1);
-  }
-  return (full / fc).toFixed(1);
-}
 `;
 
   writeFileSync(outputPath, jsContent);
@@ -67,53 +59,46 @@ function transformResults(results) {
   // Transform rendering results
   const rendering = (benchmarks.rendering || []).map(r => ({
     events: r.eventCount,
-    forceCalendar: Math.round(r.forceCalendar?.opsPerSecond || 0),
-    fullCalendar: Math.round(r.fullCalendar?.opsPerSecond || 0),
+    forceCalendar: Math.round(r.forceCalendar?.opsPerSec || 0),
+    fullCalendar: Math.round(r.fullCalendar?.opsPerSec || 0),
   }));
 
-  // Transform memory results
+  // Transform memory results (convert bytes to KB)
   const memory = (benchmarks.memory || []).map(r => ({
     events: r.eventCount,
-    forceCalendar: Math.round((r.forceCalendar?.heapUsed || 0) / 1024), // Convert to KB
+    forceCalendar: Math.round((r.forceCalendar?.heapUsed || 0) / 1024),
     fullCalendar: Math.round((r.fullCalendar?.heapUsed || 0) / 1024),
   }));
 
   // Transform recurrence results
   const recurrence = (benchmarks.recurrence || []).map(r => ({
-    scenario: r.name || r.scenario,
-    forceCalendar: Math.round(r.forceCalendar?.opsPerSecond || 0),
-    fullCalendar: Math.round(r.fullCalendar?.opsPerSecond || r.rrule?.opsPerSecond || 0),
+    scenario: r.testCase || r.name,
+    forceCalendar: Math.round(r.forceCalendar?.opsPerSec || 0),
+    fullCalendar: Math.round(r.rrule?.opsPerSec || 0),
   }));
 
-  // Transform bundle size
+  // Transform bundle size - handle array format
   const bundleSizeData = benchmarks.bundleSize || {};
+  const packages = bundleSizeData.packages || [];
+
+  // Find packages by name
+  const findPkg = (name) => packages.find(p => p.package === name);
+
   const bundleSize = {
     forceCalendar: {
-      core: Math.round((bundleSizeData.packages?.['@forcecalendar/core']?.size || 0) / 1024),
+      core: Math.round((findPkg('@forcecalendar/core')?.installedSize || 0) / 1024),
       total: Math.round((bundleSizeData.totals?.forceCalendar || 0) / 1024),
     },
     fullCalendar: {
-      core: Math.round((bundleSizeData.packages?.['@fullcalendar/core']?.size || 0) / 1024),
-      daygrid: Math.round((bundleSizeData.packages?.['@fullcalendar/daygrid']?.size || 0) / 1024),
-      timegrid: Math.round((bundleSizeData.packages?.['@fullcalendar/timegrid']?.size || 0) / 1024),
-      list: Math.round((bundleSizeData.packages?.['@fullcalendar/list']?.size || 0) / 1024),
-      rrule: Math.round((bundleSizeData.packages?.['@fullcalendar/rrule']?.size || 0) / 1024),
-      rruleLib: Math.round((bundleSizeData.packages?.['rrule']?.size || 0) / 1024),
+      core: Math.round((findPkg('@fullcalendar/core')?.installedSize || 0) / 1024),
+      daygrid: Math.round((findPkg('@fullcalendar/daygrid')?.installedSize || 0) / 1024),
+      timegrid: Math.round((findPkg('@fullcalendar/timegrid')?.installedSize || 0) / 1024),
+      list: Math.round((findPkg('@fullcalendar/list')?.installedSize || 0) / 1024),
+      rrule: Math.round((findPkg('@fullcalendar/rrule')?.installedSize || 0) / 1024),
+      rruleLib: Math.round((findPkg('rrule')?.installedSize || 0) / 1024),
       total: Math.round((bundleSizeData.totals?.fullCalendar || 0) / 1024),
     },
   };
-
-  // Feature comparison (static)
-  const features = [
-    { feature: 'DOM-free Core', forceCalendar: true, fullCalendar: false },
-    { feature: 'Built-in Search', forceCalendar: true, fullCalendar: false },
-    { feature: 'Conflict Detection', forceCalendar: true, fullCalendar: false },
-    { feature: 'ICS Import/Export', forceCalendar: true, fullCalendar: false },
-    { feature: 'Timezone Support', forceCalendar: true, fullCalendar: true },
-    { feature: 'Recurrence (RRULE)', forceCalendar: true, fullCalendar: true },
-    { feature: 'Salesforce Compatible', forceCalendar: true, fullCalendar: false },
-    { feature: 'React/Vue/Angular', forceCalendar: true, fullCalendar: true },
-  ];
 
   return {
     timestamp: results.timestamp,
@@ -123,7 +108,6 @@ function transformResults(results) {
     memory,
     recurrence,
     bundleSize,
-    features,
   };
 }
 
