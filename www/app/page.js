@@ -2,7 +2,7 @@
 
 import { benchmarkResults } from '../data/benchmarkResults';
 import { BundleSizeChart, RecurrenceChart } from '../components/Charts';
-import ThemeToggle from '../components/ThemeToggle';
+import Nav from '../components/Nav';
 
 export default function Home() {
   const { bundleSize, recurrence, versions, timestamp, environment } = benchmarkResults;
@@ -37,15 +37,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      <Nav />
+
       {/* Header */}
       <header className="border-b border-slate-200 dark:border-slate-800/80">
         <div className="max-w-6xl mx-auto px-6 py-12 md:py-16">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-emerald-500" />
-              <span className="text-xs font-medium uppercase tracking-widest text-slate-400 dark:text-slate-500">Benchmark</span>
-            </div>
-            <ThemeToggle />
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span className="text-xs font-medium uppercase tracking-widest text-slate-400 dark:text-slate-500">Benchmark</span>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
             forceCalendar Benchmark
