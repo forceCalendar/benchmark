@@ -97,6 +97,16 @@ a {
   @apply bg-slate-300 dark:bg-slate-700 rounded-full;
 }
 
+/* Slide-in animation for mobile menu */
+@keyframes slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.2s ease-out;
+}
+
 /* Chart container */
 .chart-wrap {
   @apply relative;
