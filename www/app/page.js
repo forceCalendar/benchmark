@@ -89,7 +89,7 @@ export default function Home() {
         </section>
 
         {/* Package Versions */}
-        <section>
+        <section id="packages">
           <div className="section-label">Tested Packages</div>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="panel overflow-hidden">
@@ -130,7 +130,7 @@ export default function Home() {
         </section>
 
         {/* Bundle Size Section */}
-        <section>
+        <section id="bundle-size">
           <div className="section-label">Bundle Size</div>
           <div className="panel overflow-hidden">
             <div className="grid grid-cols-3 divide-x divide-slate-200 dark:divide-slate-800/80 border-b border-slate-200 dark:border-slate-800/80">
@@ -204,7 +204,7 @@ export default function Home() {
         </section>
 
         {/* Recurrence Performance */}
-        <section>
+        <section id="recurrence">
           <div className="section-label">Recurrence Expansion</div>
           <div className="panel overflow-hidden">
             <div className="px-6 py-5 border-b border-slate-200 dark:border-slate-800/80">
@@ -273,7 +273,7 @@ export default function Home() {
         </section>
 
         {/* Methodology */}
-        <section>
+        <section id="methodology">
           <div className="section-label">Methodology</div>
           <div className="panel overflow-hidden">
             <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-800/80">
