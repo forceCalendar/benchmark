@@ -6,6 +6,10 @@ import MobileMenu from './MobileMenu';
 
 const sites = [
   { href: 'https://forcecalendar.org', label: 'Home' },
+  { href: 'https://forcecalendar.org/core', label: 'Core' },
+  { href: 'https://forcecalendar.org/interface', label: 'Interface' },
+  { href: 'https://forcecalendar.org/salesforce', label: 'Salesforce' },
+  { href: 'https://forcecalendar.org/playground', label: 'Playground' },
   { href: 'https://docs.forcecalendar.org', label: 'Docs' },
   { href: 'https://benchmark.forcecalendar.org', label: 'Benchmark', current: true },
   { href: 'https://audit.forcecalendar.org', label: 'Audit' },
