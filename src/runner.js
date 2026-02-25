@@ -12,7 +12,7 @@
  * - Memory: Different architectures, not comparable
  */
 
-import { writeFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
@@ -45,7 +45,13 @@ function getPackageVersions() {
       const pkgJson = require(`${pkg}/package.json`);
       versions[pkg] = pkgJson.version;
     } catch {
-      versions[pkg] = null;
+      // Fallback: read package.json directly from node_modules
+      try {
+        const pkgPath = join(__dirname, '..', 'node_modules', pkg, 'package.json');
+        versions[pkg] = JSON.parse(readFileSync(pkgPath, 'utf-8')).version;
+      } catch {
+        versions[pkg] = null;
+      }
     }
   }
 
