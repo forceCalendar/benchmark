@@ -1,11 +1,11 @@
 // Auto-generated benchmark results
-// Last updated: 2026-01-21T11:47:18.648Z
+// Last updated: 2026-02-25T10:38:52.237Z
 
 export const benchmarkResults = {
-  "timestamp": "2026-01-21T11:47:18.648Z",
+  "timestamp": "2026-02-25T10:38:52.237Z",
   "versions": {
-    "@forcecalendar/core": null,
-    "@forcecalendar/interface": null,
+    "@forcecalendar/core": "2.1.20",
+    "@forcecalendar/interface": "1.0.57",
     "@fullcalendar/core": "6.1.20",
     "@fullcalendar/daygrid": "6.1.20",
     "@fullcalendar/timegrid": "6.1.20",
@@ -14,7 +14,7 @@ export const benchmarkResults = {
     "rrule": "2.8.1"
   },
   "environment": {
-    "node": "v20.19.6",
+    "node": "v24.13.0",
     "platform": "linux",
     "arch": "x64"
   },
@@ -23,75 +23,75 @@ export const benchmarkResults = {
       {
         "package": "@forcecalendar/core",
         "version": null,
-        "size": 309372
+        "size": 362584
       },
       {
         "package": "@forcecalendar/interface",
         "version": null,
-        "size": 1567139
+        "size": 732893
       }
     ],
     "fullCalendar": [
       {
         "package": "@fullcalendar/core",
         "version": "6.1.20",
-        "size": 1877007
+        "size": 1893391
       },
       {
         "package": "@fullcalendar/daygrid",
         "version": "6.1.20",
-        "size": 202194
+        "size": 206290
       },
       {
         "package": "@fullcalendar/timegrid",
         "version": "6.1.20",
-        "size": 237205
+        "size": 241301
       },
       {
         "package": "@fullcalendar/list",
         "version": "6.1.20",
-        "size": 68293
+        "size": 72389
       },
       {
         "package": "@fullcalendar/rrule",
         "version": "6.1.20",
-        "size": 26791
+        "size": 30887
       },
       {
         "package": "rrule",
         "version": "2.8.1",
-        "size": 687245
+        "size": 715917
       }
     ],
     "totals": {
-      "forceCalendar": 1876511,
-      "fullCalendar": 3098735,
-      "ratio": 1.6513279165429886
+      "forceCalendar": 1095477,
+      "fullCalendar": 3160175,
+      "ratio": 2.8847479225944497
     }
   },
   "recurrence": [
     {
       "scenario": "Daily for 1 year",
-      "forceCalendar": 1100,
-      "rrule": 21052,
+      "forceCalendar": 1625,
+      "rrule": 27537,
       "occurrences": {
-        "forceCalendar": 364,
-        "rrule": 364
+        "forceCalendar": 365,
+        "rrule": 365
       }
     },
     {
       "scenario": "Weekly (MWF) for 1 year",
-      "forceCalendar": 1460,
-      "rrule": 57233,
+      "forceCalendar": 2170,
+      "rrule": 62211,
       "occurrences": {
-        "forceCalendar": 155,
+        "forceCalendar": 156,
         "rrule": 156
       }
     },
     {
       "scenario": "Monthly (15th) for 5 years",
-      "forceCalendar": 3588,
-      "rrule": 161825,
+      "forceCalendar": 7255,
+      "rrule": 163386,
       "occurrences": {
         "forceCalendar": 60,
         "rrule": 60
@@ -99,20 +99,20 @@ export const benchmarkResults = {
     },
     {
       "scenario": "Yearly for 10 years",
-      "forceCalendar": 44921,
-      "rrule": 939418,
+      "forceCalendar": 51550,
+      "rrule": 703199,
       "occurrences": {
-        "forceCalendar": 9,
-        "rrule": 9
+        "forceCalendar": 10,
+        "rrule": 10
       }
     },
     {
       "scenario": "Daily for 5 years (1825 occurrences)",
-      "forceCalendar": 6,
-      "rrule": 5445,
+      "forceCalendar": 3,
+      "rrule": 3956,
       "occurrences": {
-        "forceCalendar": 1824,
-        "rrule": 1824
+        "forceCalendar": 1825,
+        "rrule": 1825
       }
     }
   ]
