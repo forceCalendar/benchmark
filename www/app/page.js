@@ -51,6 +51,15 @@ export default function Home() {
             An honest, reproducible comparison between ForceCalendar and FullCalendar.
             We measure what can be fairly compared and clearly note what cannot.
           </p>
+          <div className="mt-6 p-4 rounded-lg border border-slate-800/60 bg-slate-900/30 max-w-2xl">
+            <p className="text-sm text-slate-500 leading-relaxed">
+              FullCalendar is an excellent calendar library that powers thousands of applications.
+              This benchmark is not a critique of FullCalendar — it exists to help developers in strict
+              enterprise environments (Salesforce Locker Service, strict CSP) understand the trade-offs.
+              forceCalendar was built for environments where most calendar libraries cannot run due to
+              security restrictions, not to replace FullCalendar in general use.
+            </p>
+          </div>
         </div>
       </header>
 
@@ -317,10 +326,27 @@ export default function Home() {
                 </ul>
               </div>
             </div>
+            <div className="p-6 border-t border-slate-800/80">
+              <h3 className="text-sm font-semibold text-slate-200 mb-3">How we measure</h3>
+              <ul className="space-y-2 text-sm text-slate-400">
+                <li className="flex items-start gap-2">
+                  <span className="text-slate-600 mt-0.5 shrink-0">1.</span>
+                  <span><strong className="text-slate-300">Bundle size</strong> is measured with <code className="mono text-xs text-slate-300">du -sb</code> on each package's <code className="mono text-xs text-slate-300">node_modules/</code> directory. This is the installed size on disk, not minified or gzipped transfer size. All packages are installed fresh from npm.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-slate-600 mt-0.5 shrink-0">2.</span>
+                  <span><strong className="text-slate-300">Recurrence</strong> is benchmarked with <a href="https://github.com/tinylibs/tinybench" className="text-slate-300 underline decoration-slate-600 hover:text-slate-100">tinybench</a>, which runs each function through a warmup phase then measures operations per second over multiple iterations. Test patterns: daily (365 and 1825 occurrences), weekly MWF (156), monthly on the 15th (60), and yearly (10).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-slate-600 mt-0.5 shrink-0">3.</span>
+                  <span><strong className="text-slate-300">Automation</strong> — benchmarks re-run automatically via GitHub Actions on every release and weekly on Sundays. Results are committed to the repository and this dashboard updates on each push.</span>
+                </li>
+              </ul>
+            </div>
             <div className="px-6 py-4 bg-slate-900/40 border-t border-slate-800/80">
               <p className="text-xs text-slate-500">
-                Benchmarks are automated and re-run on each release. Results may vary across environments.
-                The source code and runner are open source -- verify the methodology yourself.
+                Results may vary across environments.
+                The <a href="https://github.com/forceCalendar/benchmark" className="text-slate-400 underline decoration-slate-600 hover:text-slate-300">source code and runner</a> are open source — verify the methodology and reproduce the results yourself.
               </p>
             </div>
           </div>
