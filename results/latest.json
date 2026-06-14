@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-11T12:47:01.335Z",
+  "timestamp": "2026-06-14T02:49:56.771Z",
   "versions": {
     "@forcecalendar/core": "2.1.57",
     "@forcecalendar/interface": "1.0.59",
@@ -75,14 +75,14 @@
           "rrule": 365
         },
         "forceCalendar": {
-          "opsPerSec": 2688.0555409334656,
-          "avgMs": 0.3720161227222023
+          "opsPerSec": 2929.6783652606614,
+          "avgMs": 0.3413343976109225
         },
         "rrule": {
-          "opsPerSec": 46507.30401819489,
-          "avgMs": 0.021501998903414688
+          "opsPerSec": 44382.83010252733,
+          "avgMs": 0.022531235563165587
         },
-        "speedup": 0.06
+        "speedup": 0.07
       },
       {
         "testCase": "Weekly (MWF) for 1 year",
@@ -91,14 +91,14 @@
           "rrule": 156
         },
         "forceCalendar": {
-          "opsPerSec": 3823.849776237673,
-          "avgMs": 0.2615165496861937
+          "opsPerSec": 3883.9500640540155,
+          "avgMs": 0.25746983959835296
         },
         "rrule": {
-          "opsPerSec": 109518.61044234842,
-          "avgMs": 0.009130868223774707
+          "opsPerSec": 104513.88137674255,
+          "avgMs": 0.009568107000019328
         },
-        "speedup": 0.03
+        "speedup": 0.04
       },
       {
         "testCase": "Monthly (15th) for 5 years",
@@ -107,12 +107,12 @@
           "rrule": 60
         },
         "forceCalendar": {
-          "opsPerSec": 12433.302466865463,
-          "avgMs": 0.08042915409361132
+          "opsPerSec": 13121.36926890038,
+          "avgMs": 0.07621155837524902
         },
         "rrule": {
-          "opsPerSec": 264085.8793127017,
-          "avgMs": 0.0037866469899964206
+          "opsPerSec": 268979.6422570241,
+          "avgMs": 0.0037177534760955908
         },
         "speedup": 0.05
       },
@@ -123,12 +123,12 @@
           "rrule": 10
         },
         "forceCalendar": {
-          "opsPerSec": 89207.24236287535,
-          "avgMs": 0.011209852176936723
+          "opsPerSec": 93122.65302499806,
+          "avgMs": 0.010738525670349596
         },
         "rrule": {
-          "opsPerSec": 1240909.9987583808,
-          "avgMs": 0.0008058602162933424
+          "opsPerSec": 1282655.711404229,
+          "avgMs": 0.0007796324384703495
         },
         "speedup": 0.07
       },
@@ -139,21 +139,21 @@
           "rrule": 1825
         },
         "forceCalendar": {
-          "opsPerSec": 7.357435460511739,
-          "avgMs": 135.91692450000045
+          "opsPerSec": 9.242440038034392,
+          "avgMs": 108.19653639999942
         },
         "rrule": {
-          "opsPerSec": 8946.14083947157,
-          "avgMs": 0.11178004213703703
+          "opsPerSec": 8664.73018896642,
+          "avgMs": 0.11541040265435962
         },
         "speedup": 0
       }
     ]
   },
   "trigger": {
-    "event": "workflow_dispatch",
+    "event": "schedule",
     "source": "manual/scheduled",
-    "runId": "27347774305",
-    "runUrl": "https://github.com/forceCalendar/benchmark/actions/runs/27347774305"
+    "runId": "27486355732",
+    "runUrl": "https://github.com/forceCalendar/benchmark/actions/runs/27486355732"
   }
 }

@@ -1,8 +1,8 @@
 // Auto-generated benchmark results
-// Last updated: 2026-06-11T12:47:01.335Z
+// Last updated: 2026-06-14T02:49:56.771Z
 
 export const benchmarkResults = {
-  "timestamp": "2026-06-11T12:47:01.335Z",
+  "timestamp": "2026-06-14T02:49:56.771Z",
   "versions": {
     "@forcecalendar/core": "2.1.57",
     "@forcecalendar/interface": "1.0.59",
@@ -72,8 +72,8 @@ export const benchmarkResults = {
   "recurrence": [
     {
       "scenario": "Daily for 1 year",
-      "forceCalendar": 2688,
-      "rrule": 46507,
+      "forceCalendar": 2930,
+      "rrule": 44383,
       "occurrences": {
         "forceCalendar": 365,
         "rrule": 365
@@ -81,8 +81,8 @@ export const benchmarkResults = {
     },
     {
       "scenario": "Weekly (MWF) for 1 year",
-      "forceCalendar": 3824,
-      "rrule": 109519,
+      "forceCalendar": 3884,
+      "rrule": 104514,
       "occurrences": {
         "forceCalendar": 156,
         "rrule": 156
@@ -90,8 +90,8 @@ export const benchmarkResults = {
     },
     {
       "scenario": "Monthly (15th) for 5 years",
-      "forceCalendar": 12433,
-      "rrule": 264086,
+      "forceCalendar": 13121,
+      "rrule": 268980,
       "occurrences": {
         "forceCalendar": 60,
         "rrule": 60
@@ -99,8 +99,8 @@ export const benchmarkResults = {
     },
     {
       "scenario": "Yearly for 10 years",
-      "forceCalendar": 89207,
-      "rrule": 1240910,
+      "forceCalendar": 93123,
+      "rrule": 1282656,
       "occurrences": {
         "forceCalendar": 10,
         "rrule": 10
@@ -108,8 +108,8 @@ export const benchmarkResults = {
     },
     {
       "scenario": "Daily for 5 years (1825 occurrences)",
-      "forceCalendar": 7,
-      "rrule": 8946,
+      "forceCalendar": 9,
+      "rrule": 8665,
       "occurrences": {
         "forceCalendar": 1825,
         "rrule": 1825
