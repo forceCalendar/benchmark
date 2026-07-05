@@ -1,8 +1,8 @@
 // Auto-generated benchmark results
-// Last updated: 2026-06-28T02:41:49.006Z
+// Last updated: 2026-07-05T02:14:06.728Z
 
 export const benchmarkResults = {
-  "timestamp": "2026-06-28T02:41:49.006Z",
+  "timestamp": "2026-07-05T02:14:06.728Z",
   "versions": {
     "@forcecalendar/core": "2.1.68",
     "@forcecalendar/interface": "1.0.59",
@@ -14,7 +14,7 @@ export const benchmarkResults = {
     "rrule": "2.8.1"
   },
   "environment": {
-    "node": "v22.23.0",
+    "node": "v22.23.1",
     "platform": "linux",
     "arch": "x64"
   },
@@ -72,8 +72,8 @@ export const benchmarkResults = {
   "recurrence": [
     {
       "scenario": "Daily for 1 year",
-      "forceCalendar": 3619,
-      "rrule": 55150,
+      "forceCalendar": 2749,
+      "rrule": 45928,
       "occurrences": {
         "forceCalendar": 365,
         "rrule": 365
@@ -81,8 +81,8 @@ export const benchmarkResults = {
     },
     {
       "scenario": "Weekly (MWF) for 1 year",
-      "forceCalendar": 5031,
-      "rrule": 127382,
+      "forceCalendar": 3852,
+      "rrule": 109497,
       "occurrences": {
         "forceCalendar": 156,
         "rrule": 156
@@ -90,8 +90,8 @@ export const benchmarkResults = {
     },
     {
       "scenario": "Monthly (15th) for 5 years",
-      "forceCalendar": 16312,
-      "rrule": 325193,
+      "forceCalendar": 12750,
+      "rrule": 271955,
       "occurrences": {
         "forceCalendar": 60,
         "rrule": 60
@@ -99,8 +99,8 @@ export const benchmarkResults = {
     },
     {
       "scenario": "Yearly for 10 years",
-      "forceCalendar": 117804,
-      "rrule": 1672068,
+      "forceCalendar": 90700,
+      "rrule": 1248528,
       "occurrences": {
         "forceCalendar": 10,
         "rrule": 10
@@ -108,8 +108,8 @@ export const benchmarkResults = {
     },
     {
       "scenario": "Daily for 5 years (1825 occurrences)",
-      "forceCalendar": 12,
-      "rrule": 10438,
+      "forceCalendar": 7,
+      "rrule": 8877,
       "occurrences": {
         "forceCalendar": 1825,
         "rrule": 1825

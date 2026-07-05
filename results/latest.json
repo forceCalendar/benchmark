@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-28T02:41:49.006Z",
+  "timestamp": "2026-07-05T02:14:06.728Z",
   "versions": {
     "@forcecalendar/core": "2.1.68",
     "@forcecalendar/interface": "1.0.59",
@@ -11,7 +11,7 @@
     "rrule": "2.8.1"
   },
   "environment": {
-    "node": "v22.23.0",
+    "node": "v22.23.1",
     "platform": "linux",
     "arch": "x64"
   },
@@ -75,14 +75,14 @@
           "rrule": 365
         },
         "forceCalendar": {
-          "opsPerSec": 3619.3640741128265,
-          "avgMs": 0.2762916301104963
+          "opsPerSec": 2748.58731335784,
+          "avgMs": 0.36382326118588526
         },
         "rrule": {
-          "opsPerSec": 55150.32170619421,
-          "avgMs": 0.01813226050298243
+          "opsPerSec": 45927.90001495972,
+          "avgMs": 0.02177325764239772
         },
-        "speedup": 0.07
+        "speedup": 0.06
       },
       {
         "testCase": "Weekly (MWF) for 1 year",
@@ -91,12 +91,12 @@
           "rrule": 156
         },
         "forceCalendar": {
-          "opsPerSec": 5030.504243806932,
-          "avgMs": 0.19878722917908334
+          "opsPerSec": 3851.6676473020184,
+          "avgMs": 0.25962780062305507
         },
         "rrule": {
-          "opsPerSec": 127381.53900620049,
-          "avgMs": 0.007850431136267898
+          "opsPerSec": 109496.75001892392,
+          "avgMs": 0.009132691151355394
         },
         "speedup": 0.04
       },
@@ -107,12 +107,12 @@
           "rrule": 60
         },
         "forceCalendar": {
-          "opsPerSec": 16311.684189482768,
-          "avgMs": 0.06130574797694813
+          "opsPerSec": 12750.262155079763,
+          "avgMs": 0.07842975994039428
         },
         "rrule": {
-          "opsPerSec": 325193.3593690867,
-          "avgMs": 0.0030750935441612873
+          "opsPerSec": 271955.4514659116,
+          "avgMs": 0.003677072824279625
         },
         "speedup": 0.05
       },
@@ -123,12 +123,12 @@
           "rrule": 10
         },
         "forceCalendar": {
-          "opsPerSec": 117804.08678272425,
-          "avgMs": 0.00848866985272236
+          "opsPerSec": 90700.07921280789,
+          "avgMs": 0.011025348695161762
         },
         "rrule": {
-          "opsPerSec": 1672067.697357901,
-          "avgMs": 0.0005980619095627162
+          "opsPerSec": 1248527.7552881886,
+          "avgMs": 0.0008009433476864735
         },
         "speedup": 0.07
       },
@@ -139,12 +139,12 @@
           "rrule": 1825
         },
         "forceCalendar": {
-          "opsPerSec": 11.904900122069574,
-          "avgMs": 83.99902474999999
+          "opsPerSec": 7.404139900139465,
+          "avgMs": 135.05957659999967
         },
         "rrule": {
-          "opsPerSec": 10437.901507961387,
-          "avgMs": 0.09580469783483411
+          "opsPerSec": 8876.837837925894,
+          "avgMs": 0.11265272817393876
         },
         "speedup": 0
       }
@@ -153,7 +153,7 @@
   "trigger": {
     "event": "schedule",
     "source": "manual/scheduled",
-    "runId": "28309110075",
-    "runUrl": "https://github.com/forceCalendar/benchmark/actions/runs/28309110075"
+    "runId": "28726671295",
+    "runUrl": "https://github.com/forceCalendar/benchmark/actions/runs/28726671295"
   }
 }
