@@ -1,2 +1,7 @@
 node_modules/
 .DS_Store
+
+# Nested dashboard app build output
+www/.next/
+www/out/
+www/node_modules/
