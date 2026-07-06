@@ -31,8 +31,14 @@ function getPackageSize(packageName) {
 
 function getPackageVersion(packageName) {
   try {
-    const packageJsonPath = require.resolve(`${packageName}/package.json`);
-    const pkg = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
+    // Resolve the entry point and walk up to the package root instead of
+    // resolving "<pkg>/package.json" — packages with an "exports" map that
+    // doesn't list "./package.json" (like @forcecalendar/*) throw
+    // ERR_PACKAGE_PATH_NOT_EXPORTED on the direct resolve.
+    const entryPath = require.resolve(packageName);
+    const nodeModulesIdx = entryPath.lastIndexOf('node_modules');
+    const packageDir = entryPath.substring(0, nodeModulesIdx + 'node_modules'.length + 1 + packageName.length);
+    const pkg = JSON.parse(readFileSync(`${packageDir}/package.json`, 'utf8'));
     return pkg.version;
   } catch (e) {
     return null;

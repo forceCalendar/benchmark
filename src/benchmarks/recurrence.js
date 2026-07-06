@@ -129,8 +129,11 @@ async function runBenchmark() {
     const rruleResult = bench.tasks.find(t => t.name.includes('rrule'))?.result;
 
     if (fcResult && rruleResult) {
-      const speedup = (rruleResult.mean / fcResult.mean).toFixed(2);
-      console.log(`\n⚡ ForceCalendar is ${speedup}x ${parseFloat(speedup) > 1 ? 'faster' : 'slower'} than rrule\n`);
+      const ratio = rruleResult.mean / fcResult.mean;
+      const line = ratio >= 1
+        ? `ForceCalendar is ${ratio.toFixed(2)}x faster than rrule`
+        : `ForceCalendar is ${(1 / ratio).toFixed(2)}x slower than rrule`;
+      console.log(`\n⚡ ${line}\n`);
 
       results.push({
         testCase: testCase.name,
