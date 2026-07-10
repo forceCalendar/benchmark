@@ -11,7 +11,7 @@
     "benchmark:full": "npm run benchmark && npm run update-dashboard"
   },
   "dependencies": {
-    "@forcecalendar/core": "^2.1.68",
+    "@forcecalendar/core": "^2.1.70",
     "@forcecalendar/interface": "^1.0.60",
     "@fullcalendar/core": "^6.1.21",
     "@fullcalendar/daygrid": "^6.1.0",
