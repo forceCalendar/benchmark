@@ -149,7 +149,7 @@ async function runBenchmark() {
           opsPerSec: rruleResult.hz,
           avgMs: rruleResult.mean,
         },
-        speedup: parseFloat(speedup),
+        speedup: parseFloat(ratio.toFixed(2)),
       });
     }
   }

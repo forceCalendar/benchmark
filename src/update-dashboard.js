@@ -62,8 +62,13 @@ function transformResults(results) {
     totals: bundleSizeData.totals || {},
   };
 
-  // Transform recurrence results
-  const recurrence = (benchmarks.recurrence || []).map(r => ({
+  // Transform recurrence results — an errored benchmark stores {error}
+  // instead of an array; keep the dashboard buildable with what we have
+  const recurrenceData = Array.isArray(benchmarks.recurrence) ? benchmarks.recurrence : [];
+  if (!Array.isArray(benchmarks.recurrence)) {
+    console.warn('Recurrence results missing or errored; dashboard will show no recurrence data');
+  }
+  const recurrence = recurrenceData.map(r => ({
     scenario: r.testCase,
     forceCalendar: Math.round(r.forceCalendar?.opsPerSec || 0),
     rrule: Math.round(r.rrule?.opsPerSec || 0),
