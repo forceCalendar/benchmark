@@ -16,8 +16,8 @@ export default function Home() {
   const formatBytes = (bytes) => {
     if (!bytes && bytes !== 0) return '--';
     if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KiB';
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MiB';
   };
 
   const formatNum = (n) => {
@@ -30,8 +30,8 @@ export default function Home() {
   const sizeRatio = fullTotal && fcTotal ? (fullTotal / fcTotal).toFixed(1) : '--';
 
   const recurrenceWins = (recurrence || []).reduce((acc, row) => {
-    if (row.forceCalendar > row.rrule) acc.fc++;
-    else acc.rrule++;
+    if (row.winner === 'forceCalendar') acc.fc++;
+    else if (row.winner === 'rrule') acc.rrule++;
     return acc;
   }, { fc: 0, rrule: 0 });
 
@@ -212,7 +212,7 @@ export default function Home() {
                 ForceCalendar&apos;s built-in <span className="mono text-xs text-slate-700 dark:text-slate-300">RecurrenceEngineV2</span> vs
                 the standalone <span className="mono text-xs text-slate-700 dark:text-slate-300">rrule</span> library (v{versions?.rrule}).
                 Both process the same UTC recurrence rules; every occurrence timestamp is checked before timing. Cold means new engine instances, warm means repeated cached queries. ForceCalendar returns event objects; rrule returns Dates, so allocation costs differ.
-                Higher ops/sec is better. These UTC-host measurements do not verify cross-timezone correctness; core 2.5.6 has a separately reproduced host-DST drift issue under investigation.
+                Higher ops/sec is better. Overlapping reported sample uncertainty is labelled inconclusive. These measurements cover the listed UTC rules. Core 2.5.7 fixes the reproduced cross-host recurrence drift; legacy timezone-conversion metadata and instance-override limitations remain documented separately.
               </p>
               {recurrenceWins.fc < recurrenceWins.rrule && (
                 <p className="text-sm text-slate-400 dark:text-slate-500 mt-3">
@@ -236,7 +236,8 @@ export default function Home() {
                 </thead>
                 <tbody>
                   {(recurrence || []).map((row, i) => {
-                    const fcWins = row.forceCalendar > row.rrule;
+                    const fcWins = row.winner === 'forceCalendar';
+                    const inconclusive = row.winner === 'inconclusive';
                     const ratio = fcWins
                       ? (row.forceCalendar / row.rrule).toFixed(1)
                       : (row.rrule / row.forceCalendar).toFixed(1);
@@ -249,12 +250,12 @@ export default function Home() {
                         <td className={`num mono text-xs ${fcWins ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-slate-400 dark:text-slate-500'}`}>
                           {formatNum(row.forceCalendar)}
                         </td>
-                        <td className={`num mono text-xs ${!fcWins ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-slate-400 dark:text-slate-500'}`}>
+                        <td className={`num mono text-xs ${!fcWins && !inconclusive ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-slate-400 dark:text-slate-500'}`}>
                           {formatNum(row.rrule)}
                         </td>
                         <td className="num text-xs">
                           <span className={fcWins ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'}>
-                            {fcWins ? 'FC' : 'rrule'} ({ratio}x)
+                            {inconclusive ? 'Within uncertainty' : `${fcWins ? 'FC' : 'rrule'} (${ratio}x)`}
                           </span>
                         </td>
                       </tr>

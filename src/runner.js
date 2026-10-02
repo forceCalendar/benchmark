@@ -144,8 +144,8 @@ function printSummary(results) {
   // Recurrence
   const recurrence = results.benchmarks.recurrence;
   if (Array.isArray(recurrence) && recurrence.length > 0) {
-    const faster = recurrence.filter(r => r.speedup > 1).length;
-    const slower = recurrence.filter(r => r.speedup < 1).length;
+    const faster = recurrence.filter(r => r.winner === 'forceCalendar').length;
+    const slower = recurrence.filter(r => r.winner === 'rrule').length;
     console.log(`Recurrence: ForceCalendar faster in ${faster}/${recurrence.length} tests`);
   }
 

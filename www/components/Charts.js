@@ -109,7 +109,7 @@ export function BundleSizeChart({ fcTotal, fullTotal }) {
       legend: { display: false },
       tooltip: {
         ...makeBaseOptions(dark).plugins.tooltip,
-        callbacks: { label: (ctx) => `${ctx.raw.toFixed(0)} KB` },
+        callbacks: { label: (ctx) => `${ctx.raw.toFixed(0)} KiB` },
       },
     },
     scales: {
@@ -117,7 +117,7 @@ export function BundleSizeChart({ fcTotal, fullTotal }) {
         ticks: {
           color: dark ? '#475569' : '#94a3b8',
           font: { family: "'JetBrains Mono', monospace", size: 10 },
-          callback: (v) => `${v} KB`,
+          callback: (v) => `${v} KiB`,
         },
         grid: { color: gridColor, drawBorder: false },
       },

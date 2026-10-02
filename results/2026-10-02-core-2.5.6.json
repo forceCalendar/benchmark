@@ -1,0 +1,257 @@
+{
+  "timestamp": "2026-10-02T10:36:48.232Z",
+  "versions": {
+    "@forcecalendar/core": "2.5.6",
+    "@forcecalendar/interface": "1.9.0",
+    "@fullcalendar/core": "6.1.21",
+    "@fullcalendar/daygrid": "6.1.21",
+    "@fullcalendar/timegrid": "6.1.21",
+    "@fullcalendar/list": "6.1.21",
+    "@fullcalendar/rrule": "6.1.21",
+    "rrule": "2.8.1"
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "linux",
+    "arch": "x64",
+    "timezone": "UTC",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logicalCpus": 9,
+    "recurrenceMethod": "RecurrenceEngineV2 vs rrule; UTC timestamp parity; cold instance and warm cache modes"
+  },
+  "benchmarks": {
+    "bundleSize": {
+      "forceCalendar": [
+        {
+          "package": "@forcecalendar/core",
+          "version": "2.5.6",
+          "size": 699428
+        },
+        {
+          "package": "@forcecalendar/interface",
+          "version": "1.9.0",
+          "size": 1186324
+        }
+      ],
+      "fullCalendar": [
+        {
+          "package": "@fullcalendar/core",
+          "version": "6.1.21",
+          "size": 1877007
+        },
+        {
+          "package": "@fullcalendar/daygrid",
+          "version": "6.1.21",
+          "size": 202194
+        },
+        {
+          "package": "@fullcalendar/timegrid",
+          "version": "6.1.21",
+          "size": 237205
+        },
+        {
+          "package": "@fullcalendar/list",
+          "version": "6.1.21",
+          "size": 68293
+        },
+        {
+          "package": "@fullcalendar/rrule",
+          "version": "6.1.21",
+          "size": 26791
+        },
+        {
+          "package": "rrule",
+          "version": "2.8.1",
+          "size": 687245
+        }
+      ],
+      "totals": {
+        "forceCalendar": 1885752,
+        "fullCalendar": 3098735,
+        "ratio": 1.6432356958921428
+      }
+    },
+    "recurrence": [
+      {
+        "testCase": "Daily for 1 year (cold)",
+        "cacheMode": "cold",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 365,
+          "rrule": 365
+        },
+        "forceCalendar": {
+          "opsPerSec": 849.84930812008,
+          "avgMs": 1.1766791952941196
+        },
+        "rrule": {
+          "opsPerSec": 701.2056475965874,
+          "avgMs": 1.4261151538461552
+        },
+        "speedup": 1.2119829767957164
+      },
+      {
+        "testCase": "Daily for 1 year (warm)",
+        "cacheMode": "warm",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 365,
+          "rrule": 365
+        },
+        "forceCalendar": {
+          "opsPerSec": 9888.839790906692,
+          "avgMs": 0.10112409758317174
+        },
+        "rrule": {
+          "opsPerSec": 35221.75727261079,
+          "avgMs": 0.02839154197390435
+        },
+        "speedup": 0.28075940999674287
+      },
+      {
+        "testCase": "Weekly (MWF) for 1 year (cold)",
+        "cacheMode": "cold",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 156,
+          "rrule": 156
+        },
+        "forceCalendar": {
+          "opsPerSec": 924.4938072832327,
+          "avgMs": 1.0816730108108066
+        },
+        "rrule": {
+          "opsPerSec": 2727.748845252829,
+          "avgMs": 0.36660266642228645
+        },
+        "speedup": 0.33892189484092455
+      },
+      {
+        "testCase": "Weekly (MWF) for 1 year (warm)",
+        "cacheMode": "warm",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 156,
+          "rrule": 156
+        },
+        "forceCalendar": {
+          "opsPerSec": 24087.25538417941,
+          "avgMs": 0.04151573037486053
+        },
+        "rrule": {
+          "opsPerSec": 101597.6876887059,
+          "avgMs": 0.00984274369574225
+        },
+        "speedup": 0.23708468108036543
+      },
+      {
+        "testCase": "Monthly (15th) for 5 years (cold)",
+        "cacheMode": "cold",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 60,
+          "rrule": 60
+        },
+        "forceCalendar": {
+          "opsPerSec": 1602.5846228864139,
+          "avgMs": 0.6239920099812893
+        },
+        "rrule": {
+          "opsPerSec": 2491.5854475217398,
+          "avgMs": 0.40135087520062857
+        },
+        "speedup": 0.6431987409785315
+      },
+      {
+        "testCase": "Monthly (15th) for 5 years (warm)",
+        "cacheMode": "warm",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 60,
+          "rrule": 60
+        },
+        "forceCalendar": {
+          "opsPerSec": 53457.90532604426,
+          "avgMs": 0.01870630721314118
+        },
+        "rrule": {
+          "opsPerSec": 225376.56706844352,
+          "avgMs": 0.004437018510874358
+        },
+        "speedup": 0.23719371548422727
+      },
+      {
+        "testCase": "Yearly for 10 years (cold)",
+        "cacheMode": "cold",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 10,
+          "rrule": 10
+        },
+        "forceCalendar": {
+          "opsPerSec": 1492.2598092893954,
+          "avgMs": 0.6701245947756199
+        },
+        "rrule": {
+          "opsPerSec": 6861.532962897111,
+          "avgMs": 0.14574002710580508
+        },
+        "speedup": 0.21748198505474
+      },
+      {
+        "testCase": "Yearly for 10 years (warm)",
+        "cacheMode": "warm",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 10,
+          "rrule": 10
+        },
+        "forceCalendar": {
+          "opsPerSec": 237172.10780597507,
+          "avgMs": 0.004216347399577342
+        },
+        "rrule": {
+          "opsPerSec": 840057.5505684959,
+          "avgMs": 0.001190394633466797
+        },
+        "speedup": 0.28232840434024137
+      },
+      {
+        "testCase": "Daily for 5 years (1825 occurrences) (cold)",
+        "cacheMode": "cold",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 1825,
+          "rrule": 1825
+        },
+        "forceCalendar": {
+          "opsPerSec": 279.9479993791752,
+          "avgMs": 3.572091967857042
+        },
+        "rrule": {
+          "opsPerSec": 93.23672880131,
+          "avgMs": 10.725387010638556
+        },
+        "speedup": 3.0025506361956564
+      },
+      {
+        "testCase": "Daily for 5 years (1825 occurrences) (warm)",
+        "cacheMode": "warm",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 1825,
+          "rrule": 1825
+        },
+        "forceCalendar": {
+          "opsPerSec": 1765.3074663504574,
+          "avgMs": 0.566473557191354
+        },
+        "rrule": {
+          "opsPerSec": 8922.484485614801,
+          "avgMs": 0.11207640670177028
+        },
+        "speedup": 0.19784931755236554
+      }
+    ]
+  }
+}

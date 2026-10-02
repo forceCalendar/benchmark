@@ -12,7 +12,7 @@ const TEST_CASES = [
   ['Daily for 5 years (1825 occurrences)', 'FREQ=DAILY;COUNT=1825', '2024-01-01T09:00:00Z', 1825],
 ];
 export async function runBenchmark({ validateOnly = false } = {}) {
-  assert.equal(Intl.DateTimeFormat().resolvedOptions().timeZone, 'UTC', 'Run with TZ=UTC: cross-host timezone correctness is outside this performance comparison');
+  if (!validateOnly) assert.equal(Intl.DateTimeFormat().resolvedOptions().timeZone, 'UTC', 'Run timing benchmarks with TZ=UTC for a controlled comparison');
   const results = [];
   const rangeStart = new Date('2024-01-01T00:00:00Z');
   const rangeEnd = new Date('2034-12-31T23:59:59Z');
@@ -36,7 +36,7 @@ export async function runBenchmark({ validateOnly = false } = {}) {
       await bench.warmup();
       await bench.run();
       const [fc, rr] = bench.tasks.map(t => { if (t.result?.error) throw t.result.error; return t.result; });
-      const row = { testCase: `${name} (${mode})`, cacheMode: mode, parity: 'all UTC timestamps equal', occurrences: { forceCalendar: actual.length, rrule: expectedDates.length }, forceCalendar: { opsPerSec: fc.hz, avgMs: fc.mean }, rrule: { opsPerSec: rr.hz, avgMs: rr.mean }, speedup: rr.mean / fc.mean };
+      const row = { testCase: `${name} (${mode})`, cacheMode: mode, parity: 'all UTC timestamps equal', occurrences: { forceCalendar: actual.length, rrule: expectedDates.length }, forceCalendar: { opsPerSec: fc.hz, avgMs: fc.mean, marginOfErrorMs: fc.moe, relativeMarginPercent: fc.rme, samples: fc.samples.length }, rrule: { opsPerSec: rr.hz, avgMs: rr.mean, marginOfErrorMs: rr.moe, relativeMarginPercent: rr.rme, samples: rr.samples.length }, speedup: rr.mean / fc.mean, winner: fc.mean + fc.moe < rr.mean - rr.moe ? 'forceCalendar' : rr.mean + rr.moe < fc.mean - fc.moe ? 'rrule' : 'inconclusive' };
       results.push(row);
       console.log(JSON.stringify(row));
     }

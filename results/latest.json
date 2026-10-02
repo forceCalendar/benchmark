@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-02T10:36:48.232Z",
+  "timestamp": "2026-10-02T11:59:38.931Z",
   "versions": {
-    "@forcecalendar/core": "2.5.6",
+    "@forcecalendar/core": "2.5.7",
     "@forcecalendar/interface": "1.9.0",
     "@fullcalendar/core": "6.1.21",
     "@fullcalendar/daygrid": "6.1.21",
@@ -24,8 +24,8 @@
       "forceCalendar": [
         {
           "package": "@forcecalendar/core",
-          "version": "2.5.6",
-          "size": 699428
+          "version": "2.5.7",
+          "size": 707048
         },
         {
           "package": "@forcecalendar/interface",
@@ -66,9 +66,9 @@
         }
       ],
       "totals": {
-        "forceCalendar": 1885752,
+        "forceCalendar": 1893372,
         "fullCalendar": 3098735,
-        "ratio": 1.6432356958921428
+        "ratio": 1.6366223858808517
       }
     },
     "recurrence": [
@@ -81,14 +81,21 @@
           "rrule": 365
         },
         "forceCalendar": {
-          "opsPerSec": 849.84930812008,
-          "avgMs": 1.1766791952941196
+          "opsPerSec": 1250.9467346880374,
+          "avgMs": 0.7993945483613107,
+          "marginOfErrorMs": 0.02203784896564987,
+          "relativeMarginPercent": 2.7568175203127847,
+          "samples": 1251
         },
         "rrule": {
-          "opsPerSec": 701.2056475965874,
-          "avgMs": 1.4261151538461552
+          "opsPerSec": 808.7051687392218,
+          "avgMs": 1.2365445883807178,
+          "marginOfErrorMs": 0.07222965333021561,
+          "relativeMarginPercent": 5.841249398438751,
+          "samples": 809
         },
-        "speedup": 1.2119829767957164
+        "speedup": 1.546851415131022,
+        "winner": "forceCalendar"
       },
       {
         "testCase": "Daily for 1 year (warm)",
@@ -99,14 +106,21 @@
           "rrule": 365
         },
         "forceCalendar": {
-          "opsPerSec": 9888.839790906692,
-          "avgMs": 0.10112409758317174
+          "opsPerSec": 10525.64659172966,
+          "avgMs": 0.09500603989361874,
+          "marginOfErrorMs": 0.001058294429411882,
+          "relativeMarginPercent": 1.1139233153985657,
+          "samples": 10528
         },
         "rrule": {
-          "opsPerSec": 35221.75727261079,
-          "avgMs": 0.02839154197390435
+          "opsPerSec": 50280.33207606497,
+          "avgMs": 0.01988849235297775,
+          "marginOfErrorMs": 0.0001822161412105396,
+          "relativeMarginPercent": 0.9161888089685079,
+          "samples": 50281
         },
-        "speedup": 0.28075940999674287
+        "speedup": 0.20933924174976162,
+        "winner": "rrule"
       },
       {
         "testCase": "Weekly (MWF) for 1 year (cold)",
@@ -117,14 +131,21 @@
           "rrule": 156
         },
         "forceCalendar": {
-          "opsPerSec": 924.4938072832327,
-          "avgMs": 1.0816730108108066
+          "opsPerSec": 2947.2226376099748,
+          "avgMs": 0.33930249694707204,
+          "marginOfErrorMs": 0.005854887007362543,
+          "relativeMarginPercent": 1.7255655528747404,
+          "samples": 2948
         },
         "rrule": {
-          "opsPerSec": 2727.748845252829,
-          "avgMs": 0.36660266642228645
+          "opsPerSec": 3026.574366793686,
+          "avgMs": 0.33040655170135047,
+          "marginOfErrorMs": 0.006075206740932934,
+          "relativeMarginPercent": 1.8387064995079825,
+          "samples": 3027
         },
-        "speedup": 0.33892189484092455
+        "speedup": 0.9737816687888705,
+        "winner": "inconclusive"
       },
       {
         "testCase": "Weekly (MWF) for 1 year (warm)",
@@ -135,14 +156,21 @@
           "rrule": 156
         },
         "forceCalendar": {
-          "opsPerSec": 24087.25538417941,
-          "avgMs": 0.04151573037486053
+          "opsPerSec": 26418.23154648161,
+          "avgMs": 0.037852647261439436,
+          "marginOfErrorMs": 0.00033454945747556216,
+          "relativeMarginPercent": 0.8838205031339204,
+          "samples": 26419
         },
         "rrule": {
-          "opsPerSec": 101597.6876887059,
-          "avgMs": 0.00984274369574225
+          "opsPerSec": 92937.57192952734,
+          "avgMs": 0.010759910972908562,
+          "marginOfErrorMs": 0.0002749460030604244,
+          "relativeMarginPercent": 2.555281393616424,
+          "samples": 92938
         },
-        "speedup": 0.23708468108036543
+        "speedup": 0.2842578195018266,
+        "winner": "rrule"
       },
       {
         "testCase": "Monthly (15th) for 5 years (cold)",
@@ -153,14 +181,21 @@
           "rrule": 60
         },
         "forceCalendar": {
-          "opsPerSec": 1602.5846228864139,
-          "avgMs": 0.6239920099812893
+          "opsPerSec": 4647.926372197914,
+          "avgMs": 0.21514970761619864,
+          "marginOfErrorMs": 0.006361592969822413,
+          "relativeMarginPercent": 2.9568215733626437,
+          "samples": 4648
         },
         "rrule": {
-          "opsPerSec": 2491.5854475217398,
-          "avgMs": 0.40135087520062857
+          "opsPerSec": 3016.28325267581,
+          "avgMs": 0.33153385018229914,
+          "marginOfErrorMs": 0.005113350884570575,
+          "relativeMarginPercent": 1.5423314638185266,
+          "samples": 3017
         },
-        "speedup": 0.6431987409785315
+        "speedup": 1.5409449255386203,
+        "winner": "forceCalendar"
       },
       {
         "testCase": "Monthly (15th) for 5 years (warm)",
@@ -171,14 +206,21 @@
           "rrule": 60
         },
         "forceCalendar": {
-          "opsPerSec": 53457.90532604426,
-          "avgMs": 0.01870630721314118
+          "opsPerSec": 57578.666734673774,
+          "avgMs": 0.01736754351412937,
+          "marginOfErrorMs": 0.00016003450762837532,
+          "relativeMarginPercent": 0.9214573580781831,
+          "samples": 57579
         },
         "rrule": {
-          "opsPerSec": 225376.56706844352,
-          "avgMs": 0.004437018510874358
+          "opsPerSec": 251262.2421932273,
+          "avgMs": 0.003979905581002392,
+          "marginOfErrorMs": 0.000059183659908119014,
+          "relativeMarginPercent": 1.4870619089715396,
+          "samples": 251263
         },
-        "speedup": 0.23719371548422727
+        "speedup": 0.2291576570840049,
+        "winner": "rrule"
       },
       {
         "testCase": "Yearly for 10 years (cold)",
@@ -189,14 +231,21 @@
           "rrule": 10
         },
         "forceCalendar": {
-          "opsPerSec": 1492.2598092893954,
-          "avgMs": 0.6701245947756199
+          "opsPerSec": 12775.723980483426,
+          "avgMs": 0.07827345061051957,
+          "marginOfErrorMs": 0.005959337233845715,
+          "relativeMarginPercent": 7.613484760623046,
+          "samples": 12776
         },
         "rrule": {
-          "opsPerSec": 6861.532962897111,
-          "avgMs": 0.14574002710580508
+          "opsPerSec": 6899.44022081701,
+          "avgMs": 0.14493929478261108,
+          "marginOfErrorMs": 0.007875927605489288,
+          "relativeMarginPercent": 5.43394916975558,
+          "samples": 6900
         },
-        "speedup": 0.21748198505474
+        "speedup": 1.8517044240685607,
+        "winner": "forceCalendar"
       },
       {
         "testCase": "Yearly for 10 years (warm)",
@@ -207,14 +256,21 @@
           "rrule": 10
         },
         "forceCalendar": {
-          "opsPerSec": 237172.10780597507,
-          "avgMs": 0.004216347399577342
+          "opsPerSec": 178049.593868827,
+          "avgMs": 0.005616412698681704,
+          "marginOfErrorMs": 0.000047831964095900474,
+          "relativeMarginPercent": 0.8516461781223394,
+          "samples": 178050
         },
         "rrule": {
-          "opsPerSec": 840057.5505684959,
-          "avgMs": 0.001190394633466797
+          "opsPerSec": 828980.7590151846,
+          "avgMs": 0.0012063006156958136,
+          "marginOfErrorMs": 0.000026623870221738096,
+          "relativeMarginPercent": 2.207067614433822,
+          "samples": 828982
         },
-        "speedup": 0.28232840434024137
+        "speedup": 0.21478133470835556,
+        "winner": "rrule"
       },
       {
         "testCase": "Daily for 5 years (1825 occurrences) (cold)",
@@ -225,14 +281,21 @@
           "rrule": 1825
         },
         "forceCalendar": {
-          "opsPerSec": 279.9479993791752,
-          "avgMs": 3.572091967857042
+          "opsPerSec": 242.87777443167948,
+          "avgMs": 4.117297279835277,
+          "marginOfErrorMs": 0.11617655206603894,
+          "relativeMarginPercent": 2.821670240694567,
+          "samples": 243
         },
         "rrule": {
-          "opsPerSec": 93.23672880131,
-          "avgMs": 10.725387010638556
+          "opsPerSec": 112.18169444405633,
+          "avgMs": 8.914110318584001,
+          "marginOfErrorMs": 0.2577097278804182,
+          "relativeMarginPercent": 2.8910313948341977,
+          "samples": 113
         },
-        "speedup": 3.0025506361956564
+        "speedup": 2.1650392752161514,
+        "winner": "forceCalendar"
       },
       {
         "testCase": "Daily for 5 years (1825 occurrences) (warm)",
@@ -243,14 +306,21 @@
           "rrule": 1825
         },
         "forceCalendar": {
-          "opsPerSec": 1765.3074663504574,
-          "avgMs": 0.566473557191354
+          "opsPerSec": 1831.1640369939653,
+          "avgMs": 0.5461007205239776,
+          "marginOfErrorMs": 0.00857468138167056,
+          "relativeMarginPercent": 1.5701648174796856,
+          "samples": 1832
         },
         "rrule": {
-          "opsPerSec": 8922.484485614801,
-          "avgMs": 0.11207640670177028
+          "opsPerSec": 8186.085581497285,
+          "avgMs": 0.12215850787832759,
+          "marginOfErrorMs": 0.0012190843997673644,
+          "relativeMarginPercent": 0.9979529227563894,
+          "samples": 8187
         },
-        "speedup": 0.19784931755236554
+        "speedup": 0.22369226643963744,
+        "winner": "rrule"
       }
     ]
   }
