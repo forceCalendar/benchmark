@@ -209,15 +209,15 @@ export default function Home() {
           <div className="panel overflow-hidden">
             <div className="px-6 py-5 border-b border-slate-200 dark:border-slate-800/80">
               <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                ForceCalendar&apos;s built-in <span className="mono text-xs text-slate-700 dark:text-slate-300">RecurrenceEngine</span> vs
+                ForceCalendar&apos;s built-in <span className="mono text-xs text-slate-700 dark:text-slate-300">RecurrenceEngineV2</span> vs
                 the standalone <span className="mono text-xs text-slate-700 dark:text-slate-300">rrule</span> library (v{versions?.rrule}).
-                Both are pure JavaScript implementations processing RFC 5545 recurrence rules.
-                Higher ops/sec is better.
+                Both process the same UTC recurrence rules; every occurrence timestamp is checked before timing. Cold means new engine instances, warm means repeated cached queries. ForceCalendar returns event objects; rrule returns Dates, so allocation costs differ.
+                Higher ops/sec is better. These UTC-host measurements do not verify cross-timezone correctness; core 2.5.6 has a separately reproduced host-DST drift issue under investigation.
               </p>
               {recurrenceWins.fc < recurrenceWins.rrule && (
                 <p className="text-sm text-slate-400 dark:text-slate-500 mt-3">
                   Note: rrule wins {recurrenceWins.rrule} of {recurrence?.length} test cases.
-                  It is a mature, dedicated library and is faster for recurrence expansion.
+                  These are workload-specific results, not a general performance guarantee.
                   ForceCalendar&apos;s engine trades raw speed for tighter integration with its event model.
                 </p>
               )}
@@ -321,7 +321,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-slate-300 dark:text-slate-600 mt-0.5 shrink-0">2.</span>
-                  <span><strong className="text-slate-700 dark:text-slate-300">Recurrence</strong> is benchmarked with <a href="https://github.com/tinylibs/tinybench" className="text-slate-700 dark:text-slate-300 underline decoration-slate-300 dark:decoration-slate-600 hover:text-slate-900 dark:hover:text-slate-100">tinybench</a>, which runs each function through a warmup phase then measures operations per second over multiple iterations. Test patterns: daily (365 and 1825 occurrences), weekly MWF (156), monthly on the 15th (60), and yearly (10).</span>
+                  <span><strong className="text-slate-700 dark:text-slate-300">Recurrence</strong> is benchmarked with <a href="https://github.com/tinylibs/tinybench" className="text-slate-700 dark:text-slate-300 underline decoration-slate-300 dark:decoration-slate-600 hover:text-slate-900 dark:hover:text-slate-100">tinybench</a>, which runs each function through a warmup phase then measures operations per second over multiple iterations. Tests assert complete UTC timestamp parity before timing. Cold runs create new instances for both libraries; warm runs reuse cached results. ForceCalendar V2 returns event objects while rrule returns Dates. Patterns: daily (365 and 1825), weekly MWF (156), monthly on the 15th (60), and yearly (10).</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-slate-300 dark:text-slate-600 mt-0.5 shrink-0">3.</span>
