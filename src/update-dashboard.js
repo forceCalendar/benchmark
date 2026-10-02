@@ -73,6 +73,7 @@ function transformResults(results) {
     forceCalendar: Math.round(r.forceCalendar?.opsPerSec || 0),
     rrule: Math.round(r.rrule?.opsPerSec || 0),
     occurrences: r.occurrences,
+    winner: r.winner || 'inconclusive',
   }));
 
   return {

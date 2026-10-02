@@ -1,172 +1,46 @@
-/**
- * Recurrence Expansion Benchmark
- *
- * Compares RRULE expansion performance:
- * - ForceCalendar: RecurrenceEngine (built-in)
- * - rrule: The rrule library (what FullCalendar uses via @fullcalendar/rrule)
- *
- * This is a fair comparison - both are pure JavaScript RRULE parsers.
- */
-
+/** UTC recurrence expansion; assert complete timestamp parity before timing. */
+import assert from 'node:assert/strict';
 import { Bench } from 'tinybench';
 import pkg from 'rrule';
+import { RecurrenceEngineV2 } from '@forcecalendar/core';
 const { RRule } = pkg;
-import { RecurrenceEngine } from '../setup/forcecalendar.js';
-
 const TEST_CASES = [
-  {
-    name: 'Daily for 1 year',
-    rrule: 'FREQ=DAILY;COUNT=365',
-    start: new Date('2024-01-01T09:00:00'),
-  },
-  {
-    name: 'Weekly (MWF) for 1 year',
-    rrule: 'FREQ=WEEKLY;BYDAY=MO,WE,FR;COUNT=156',
-    start: new Date('2024-01-01T09:00:00'),
-  },
-  {
-    name: 'Monthly (15th) for 5 years',
-    rrule: 'FREQ=MONTHLY;BYMONTHDAY=15;COUNT=60',
-    start: new Date('2024-01-15T09:00:00'),
-  },
-  {
-    name: 'Yearly for 10 years',
-    rrule: 'FREQ=YEARLY;COUNT=10',
-    start: new Date('2024-01-01T09:00:00'),
-  },
-  {
-    name: 'Daily for 5 years (1825 occurrences)',
-    rrule: 'FREQ=DAILY;COUNT=1825',
-    start: new Date('2024-01-01T09:00:00'),
-  },
+  ['Daily for 1 year', 'FREQ=DAILY;COUNT=365', '2024-01-01T09:00:00Z', 365],
+  ['Weekly (MWF) for 1 year', 'FREQ=WEEKLY;BYDAY=MO,WE,FR;COUNT=156', '2024-01-01T09:00:00Z', 156],
+  ['Monthly (15th) for 5 years', 'FREQ=MONTHLY;BYMONTHDAY=15;COUNT=60', '2024-01-15T09:00:00Z', 60],
+  ['Yearly for 10 years', 'FREQ=YEARLY;COUNT=10', '2024-01-01T09:00:00Z', 10],
+  ['Daily for 5 years (1825 occurrences)', 'FREQ=DAILY;COUNT=1825', '2024-01-01T09:00:00Z', 1825],
 ];
-
-async function runBenchmark() {
-  console.log('='.repeat(60));
-  console.log('RECURRENCE EXPANSION BENCHMARK');
-  console.log('='.repeat(60));
-  console.log('');
-
+export async function runBenchmark({ validateOnly = false } = {}) {
+  if (!validateOnly) assert.equal(Intl.DateTimeFormat().resolvedOptions().timeZone, 'UTC', 'Run timing benchmarks with TZ=UTC for a controlled comparison');
   const results = [];
-  const rangeStart = new Date('2024-01-01');
-  const rangeEnd = new Date('2034-12-31'); // 10 year range
-
-  for (const testCase of TEST_CASES) {
-    console.log(`\n📊 Testing: ${testCase.name}...\n`);
-
-    // Create event for ForceCalendar
-    const fcEvent = {
-      id: 'test-event',
-      title: 'Recurring Event',
-      start: testCase.start,
-      end: new Date(testCase.start.getTime() + 60 * 60 * 1000), // 1 hour
-      recurring: true,
-      recurrenceRule: testCase.rrule,
-      timeZone: 'America/New_York',
-    };
-
-    // Parse RRULE for rrule library (used by FullCalendar)
-    const rruleParts = testCase.rrule.split(';').reduce((acc, part) => {
-      const [key, value] = part.split('=');
-      acc[key] = value;
-      return acc;
-    }, {});
-
-    const rruleOptions = {
-      freq: RRule[rruleParts.FREQ],
-      dtstart: testCase.start,
-      count: rruleParts.COUNT ? parseInt(rruleParts.COUNT) : undefined,
-      interval: rruleParts.INTERVAL ? parseInt(rruleParts.INTERVAL) : 1,
-    };
-
-    if (rruleParts.BYDAY) {
-      const dayMap = { MO: RRule.MO, TU: RRule.TU, WE: RRule.WE, TH: RRule.TH, FR: RRule.FR, SA: RRule.SA, SU: RRule.SU };
-      rruleOptions.byweekday = rruleParts.BYDAY.split(',').map(d => dayMap[d]);
-    }
-    if (rruleParts.BYMONTHDAY) {
-      rruleOptions.bymonthday = parseInt(rruleParts.BYMONTHDAY);
-    }
-
-    const rrule = new RRule(rruleOptions);
-
-    const bench = new Bench({ time: 1000 });
-
-    // ForceCalendar recurrence expansion
-    bench.add('ForceCalendar', () => {
-      RecurrenceEngine.expandEvent(fcEvent, rangeStart, rangeEnd, 2000);
-    });
-
-    // RRule library
-    bench.add('rrule', () => {
-      rrule.between(rangeStart, rangeEnd, true);
-    });
-
-    await bench.warmup();
-    await bench.run();
-
-    // Verify results match
-    const fcOccurrences = RecurrenceEngine.expandEvent(fcEvent, rangeStart, rangeEnd, 2000);
-    const rruleOccurrences = rrule.between(rangeStart, rangeEnd, true);
-
-    console.log(`Occurrences: ForceCalendar=${fcOccurrences.length}, rrule=${rruleOccurrences.length}`);
-    console.log('');
-
-    // Display results
-    console.log('Results:');
-    console.log('-'.repeat(50));
-
-    const table = bench.tasks.map(task => ({
-      Library: task.name,
-      'Ops/sec': task.result?.hz.toFixed(2),
-      'Avg (ms)': task.result?.mean.toFixed(4),
-      'Min (ms)': task.result?.min.toFixed(4),
-      'Max (ms)': task.result?.max.toFixed(4),
-    }));
-
-    console.table(table);
-
-    const fcResult = bench.tasks.find(t => t.name === 'ForceCalendar')?.result;
-    const rruleResult = bench.tasks.find(t => t.name.includes('rrule'))?.result;
-
-    if (fcResult && rruleResult) {
-      const ratio = rruleResult.mean / fcResult.mean;
-      const line = ratio >= 1
-        ? `ForceCalendar is ${ratio.toFixed(2)}x faster than rrule`
-        : `ForceCalendar is ${(1 / ratio).toFixed(2)}x slower than rrule`;
-      console.log(`\n⚡ ${line}\n`);
-
-      results.push({
-        testCase: testCase.name,
-        occurrences: {
-          forceCalendar: fcOccurrences.length,
-          rrule: rruleOccurrences.length,
-        },
-        forceCalendar: {
-          opsPerSec: fcResult.hz,
-          avgMs: fcResult.mean,
-        },
-        rrule: {
-          opsPerSec: rruleResult.hz,
-          avgMs: rruleResult.mean,
-        },
-        speedup: parseFloat(ratio.toFixed(2)),
-      });
+  const rangeStart = new Date('2024-01-01T00:00:00Z');
+  const rangeEnd = new Date('2034-12-31T23:59:59Z');
+  for (const [name, rule, start, expected] of TEST_CASES) {
+    const event = { id: 'benchmark', title: 'UTC fixture', start: new Date(start), end: new Date(Date.parse(start) + 3600000), recurring: true, recurrenceRule: rule, timeZone: 'UTC' };
+    const options = { ...RRule.parseString(rule), dtstart: event.start };
+    const expansionOptions = { maxOccurrences: 2000, timezone: 'UTC' };
+    for (const mode of ['cold', 'warm']) {
+      const engine = new RecurrenceEngineV2();
+      const rrule = new RRule(options);
+      // Cold creates both instances per operation; warm measures each library's cached results.
+      const force = () => (mode === 'cold' ? new RecurrenceEngineV2() : engine).expandEvent(event, rangeStart, rangeEnd, expansionOptions);
+      const reference = () => (mode === 'cold' ? new RRule(options, true) : rrule).between(rangeStart, rangeEnd, true);
+      const actual = force().map(o => o.start.getTime());
+      const expectedDates = reference().map(d => d.getTime());
+      assert.equal(actual.length, expected, `${name}: expected count`);
+      assert.deepEqual(actual, expectedDates, `${name}: full UTC timestamp parity`);
+      if (validateOnly) { console.log(`${name} (${mode}): ${actual.length} timestamps match`); continue; }
+      const bench = new Bench({ time: 1000 });
+      bench.add('ForceCalendar', force).add('rrule', reference);
+      await bench.warmup();
+      await bench.run();
+      const [fc, rr] = bench.tasks.map(t => { if (t.result?.error) throw t.result.error; return t.result; });
+      const row = { testCase: `${name} (${mode})`, cacheMode: mode, parity: 'all UTC timestamps equal', occurrences: { forceCalendar: actual.length, rrule: expectedDates.length }, forceCalendar: { opsPerSec: fc.hz, avgMs: fc.mean, marginOfErrorMs: fc.moe, relativeMarginPercent: fc.rme, samples: fc.samples.length }, rrule: { opsPerSec: rr.hz, avgMs: rr.mean, marginOfErrorMs: rr.moe, relativeMarginPercent: rr.rme, samples: rr.samples.length }, speedup: rr.mean / fc.mean, winner: fc.mean + fc.moe < rr.mean - rr.moe ? 'forceCalendar' : rr.mean + rr.moe < fc.mean - fc.moe ? 'rrule' : 'inconclusive' };
+      results.push(row);
+      console.log(JSON.stringify(row));
     }
   }
-
   return results;
 }
-
-// Run if executed directly
-if (process.argv[1].includes('recurrence')) {
-  runBenchmark()
-    .then(results => {
-      console.log('\n' + '='.repeat(60));
-      console.log('SUMMARY');
-      console.log('='.repeat(60));
-      console.log(JSON.stringify(results, null, 2));
-    })
-    .catch(console.error);
-}
-
-export { runBenchmark };
+if (process.argv[1]?.endsWith('/recurrence.js')) runBenchmark({ validateOnly: process.argv.includes('--validate-only') }).catch(error => { console.error(error); process.exitCode = 1; });

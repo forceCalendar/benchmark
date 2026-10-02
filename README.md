@@ -33,3 +33,13 @@ Found a benchmark that's unfair to either side? That's a bug — please open an 
 ## License
 
 [MIT](LICENSE)
+
+## October 2026 methodology update
+
+The recurrence suite uses the default `RecurrenceEngineV2` with explicit UTC fixtures. Every output timestamp and expected occurrence count must match `rrule` before timing; failures exit nonzero. Each pattern has separate cold-instance (new engine/rule per operation) and warm-cache (reused instance) results. Shared timezone caches remain warm; cold does not mean a fresh process. ForceCalendar returns full event objects while rrule returns Dates, so allocation costs differ. These measurements do not establish browser rendering speed, DST performance, or general RFC conformance.
+
+Reproduce the pinned release comparison with `npm ci`, `TZ=UTC npm run benchmark`, and `npm run update-dashboard`. Node/CPU/timezone metadata and exact installed versions are stored in `results/latest.json`. Run the fast parity gate with `TZ=UTC node src/benchmarks/recurrence.js --validate-only`. Timing runs require a UTC host for a controlled comparison; the parity-only gate can run in other host timezones. Core 2.5.7 fixes the host-DST recurrence drift found in 2.5.6. This does not redefine legacy UTC metadata conversions or instance-override bounds; see the core recurrence timezone contract.
+
+Earlier results used the legacy engine, mixed cached and uncached workloads, and timezone-dependent fixtures. They are historical evidence and are superseded by this methodology; do not compare their ratios directly. Installed footprint is not minified or gzip browser transfer size.
+
+Results record sample counts and the runner's reported margin of error. The dashboard calls a comparison inconclusive when mean-latency uncertainty intervals overlap. Shared-host timing can vary; ratios are workload-specific observations, not general speed guarantees.

@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-07-12T01:56:17.813Z",
+  "timestamp": "2026-10-02T11:59:38.931Z",
   "versions": {
-    "@forcecalendar/core": "2.3.0",
-    "@forcecalendar/interface": "1.1.0",
+    "@forcecalendar/core": "2.5.7",
+    "@forcecalendar/interface": "1.9.0",
     "@fullcalendar/core": "6.1.21",
     "@fullcalendar/daygrid": "6.1.21",
     "@fullcalendar/timegrid": "6.1.21",
@@ -11,22 +11,26 @@
     "rrule": "2.8.1"
   },
   "environment": {
-    "node": "v22.23.1",
+    "node": "v24.19.0",
     "platform": "linux",
-    "arch": "x64"
+    "arch": "x64",
+    "timezone": "UTC",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logicalCpus": 9,
+    "recurrenceMethod": "RecurrenceEngineV2 vs rrule; UTC timestamp parity; cold instance and warm cache modes"
   },
   "benchmarks": {
     "bundleSize": {
       "forceCalendar": [
         {
           "package": "@forcecalendar/core",
-          "version": "2.3.0",
-          "size": 509111
+          "version": "2.5.7",
+          "size": 707048
         },
         {
           "package": "@forcecalendar/interface",
-          "version": "1.1.0",
-          "size": 716998
+          "version": "1.9.0",
+          "size": 1186324
         }
       ],
       "fullCalendar": [
@@ -62,98 +66,262 @@
         }
       ],
       "totals": {
-        "forceCalendar": 1226109,
+        "forceCalendar": 1893372,
         "fullCalendar": 3098735,
-        "ratio": 2.527291619260604
+        "ratio": 1.6366223858808517
       }
     },
     "recurrence": [
       {
-        "testCase": "Daily for 1 year",
+        "testCase": "Daily for 1 year (cold)",
+        "cacheMode": "cold",
+        "parity": "all UTC timestamps equal",
         "occurrences": {
           "forceCalendar": 365,
           "rrule": 365
         },
         "forceCalendar": {
-          "opsPerSec": 20279.493458812423,
-          "avgMs": 0.049310896351084724
+          "opsPerSec": 1250.9467346880374,
+          "avgMs": 0.7993945483613107,
+          "marginOfErrorMs": 0.02203784896564987,
+          "relativeMarginPercent": 2.7568175203127847,
+          "samples": 1251
         },
         "rrule": {
-          "opsPerSec": 42680.98655548797,
-          "avgMs": 0.023429636489305065
+          "opsPerSec": 808.7051687392218,
+          "avgMs": 1.2365445883807178,
+          "marginOfErrorMs": 0.07222965333021561,
+          "relativeMarginPercent": 5.841249398438751,
+          "samples": 809
         },
-        "speedup": 0.48
+        "speedup": 1.546851415131022,
+        "winner": "forceCalendar"
       },
       {
-        "testCase": "Weekly (MWF) for 1 year",
+        "testCase": "Daily for 1 year (warm)",
+        "cacheMode": "warm",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 365,
+          "rrule": 365
+        },
+        "forceCalendar": {
+          "opsPerSec": 10525.64659172966,
+          "avgMs": 0.09500603989361874,
+          "marginOfErrorMs": 0.001058294429411882,
+          "relativeMarginPercent": 1.1139233153985657,
+          "samples": 10528
+        },
+        "rrule": {
+          "opsPerSec": 50280.33207606497,
+          "avgMs": 0.01988849235297775,
+          "marginOfErrorMs": 0.0001822161412105396,
+          "relativeMarginPercent": 0.9161888089685079,
+          "samples": 50281
+        },
+        "speedup": 0.20933924174976162,
+        "winner": "rrule"
+      },
+      {
+        "testCase": "Weekly (MWF) for 1 year (cold)",
+        "cacheMode": "cold",
+        "parity": "all UTC timestamps equal",
         "occurrences": {
           "forceCalendar": 156,
           "rrule": 156
         },
         "forceCalendar": {
-          "opsPerSec": 45267.95156329583,
-          "avgMs": 0.02209068370592718
+          "opsPerSec": 2947.2226376099748,
+          "avgMs": 0.33930249694707204,
+          "marginOfErrorMs": 0.005854887007362543,
+          "relativeMarginPercent": 1.7255655528747404,
+          "samples": 2948
         },
         "rrule": {
-          "opsPerSec": 100094.80171219408,
-          "avgMs": 0.00999052880763312
+          "opsPerSec": 3026.574366793686,
+          "avgMs": 0.33040655170135047,
+          "marginOfErrorMs": 0.006075206740932934,
+          "relativeMarginPercent": 1.8387064995079825,
+          "samples": 3027
         },
-        "speedup": 0.45
+        "speedup": 0.9737816687888705,
+        "winner": "inconclusive"
       },
       {
-        "testCase": "Monthly (15th) for 5 years",
+        "testCase": "Weekly (MWF) for 1 year (warm)",
+        "cacheMode": "warm",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 156,
+          "rrule": 156
+        },
+        "forceCalendar": {
+          "opsPerSec": 26418.23154648161,
+          "avgMs": 0.037852647261439436,
+          "marginOfErrorMs": 0.00033454945747556216,
+          "relativeMarginPercent": 0.8838205031339204,
+          "samples": 26419
+        },
+        "rrule": {
+          "opsPerSec": 92937.57192952734,
+          "avgMs": 0.010759910972908562,
+          "marginOfErrorMs": 0.0002749460030604244,
+          "relativeMarginPercent": 2.555281393616424,
+          "samples": 92938
+        },
+        "speedup": 0.2842578195018266,
+        "winner": "rrule"
+      },
+      {
+        "testCase": "Monthly (15th) for 5 years (cold)",
+        "cacheMode": "cold",
+        "parity": "all UTC timestamps equal",
         "occurrences": {
           "forceCalendar": 60,
           "rrule": 60
         },
         "forceCalendar": {
-          "opsPerSec": 38021.591914257886,
-          "avgMs": 0.026300845115982782
+          "opsPerSec": 4647.926372197914,
+          "avgMs": 0.21514970761619864,
+          "marginOfErrorMs": 0.006361592969822413,
+          "relativeMarginPercent": 2.9568215733626437,
+          "samples": 4648
         },
         "rrule": {
-          "opsPerSec": 255159.92600368807,
-          "avgMs": 0.003919110714844564
+          "opsPerSec": 3016.28325267581,
+          "avgMs": 0.33153385018229914,
+          "marginOfErrorMs": 0.005113350884570575,
+          "relativeMarginPercent": 1.5423314638185266,
+          "samples": 3017
         },
-        "speedup": 0.15
+        "speedup": 1.5409449255386203,
+        "winner": "forceCalendar"
       },
       {
-        "testCase": "Yearly for 10 years",
+        "testCase": "Monthly (15th) for 5 years (warm)",
+        "cacheMode": "warm",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 60,
+          "rrule": 60
+        },
+        "forceCalendar": {
+          "opsPerSec": 57578.666734673774,
+          "avgMs": 0.01736754351412937,
+          "marginOfErrorMs": 0.00016003450762837532,
+          "relativeMarginPercent": 0.9214573580781831,
+          "samples": 57579
+        },
+        "rrule": {
+          "opsPerSec": 251262.2421932273,
+          "avgMs": 0.003979905581002392,
+          "marginOfErrorMs": 0.000059183659908119014,
+          "relativeMarginPercent": 1.4870619089715396,
+          "samples": 251263
+        },
+        "speedup": 0.2291576570840049,
+        "winner": "rrule"
+      },
+      {
+        "testCase": "Yearly for 10 years (cold)",
+        "cacheMode": "cold",
+        "parity": "all UTC timestamps equal",
         "occurrences": {
           "forceCalendar": 10,
           "rrule": 10
         },
         "forceCalendar": {
-          "opsPerSec": 313535.8413508608,
-          "avgMs": 0.0031894280274035874
+          "opsPerSec": 12775.723980483426,
+          "avgMs": 0.07827345061051957,
+          "marginOfErrorMs": 0.005959337233845715,
+          "relativeMarginPercent": 7.613484760623046,
+          "samples": 12776
         },
         "rrule": {
-          "opsPerSec": 1266361.3452917782,
-          "avgMs": 0.0007896640273472602
+          "opsPerSec": 6899.44022081701,
+          "avgMs": 0.14493929478261108,
+          "marginOfErrorMs": 0.007875927605489288,
+          "relativeMarginPercent": 5.43394916975558,
+          "samples": 6900
         },
-        "speedup": 0.25
+        "speedup": 1.8517044240685607,
+        "winner": "forceCalendar"
       },
       {
-        "testCase": "Daily for 5 years (1825 occurrences)",
+        "testCase": "Yearly for 10 years (warm)",
+        "cacheMode": "warm",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 10,
+          "rrule": 10
+        },
+        "forceCalendar": {
+          "opsPerSec": 178049.593868827,
+          "avgMs": 0.005616412698681704,
+          "marginOfErrorMs": 0.000047831964095900474,
+          "relativeMarginPercent": 0.8516461781223394,
+          "samples": 178050
+        },
+        "rrule": {
+          "opsPerSec": 828980.7590151846,
+          "avgMs": 0.0012063006156958136,
+          "marginOfErrorMs": 0.000026623870221738096,
+          "relativeMarginPercent": 2.207067614433822,
+          "samples": 828982
+        },
+        "speedup": 0.21478133470835556,
+        "winner": "rrule"
+      },
+      {
+        "testCase": "Daily for 5 years (1825 occurrences) (cold)",
+        "cacheMode": "cold",
+        "parity": "all UTC timestamps equal",
         "occurrences": {
           "forceCalendar": 1825,
           "rrule": 1825
         },
         "forceCalendar": {
-          "opsPerSec": 4087.7809112942127,
-          "avgMs": 0.24463150587084542
+          "opsPerSec": 242.87777443167948,
+          "avgMs": 4.117297279835277,
+          "marginOfErrorMs": 0.11617655206603894,
+          "relativeMarginPercent": 2.821670240694567,
+          "samples": 243
         },
         "rrule": {
-          "opsPerSec": 8760.89146131577,
-          "avgMs": 0.11414363531560215
+          "opsPerSec": 112.18169444405633,
+          "avgMs": 8.914110318584001,
+          "marginOfErrorMs": 0.2577097278804182,
+          "relativeMarginPercent": 2.8910313948341977,
+          "samples": 113
         },
-        "speedup": 0.47
+        "speedup": 2.1650392752161514,
+        "winner": "forceCalendar"
+      },
+      {
+        "testCase": "Daily for 5 years (1825 occurrences) (warm)",
+        "cacheMode": "warm",
+        "parity": "all UTC timestamps equal",
+        "occurrences": {
+          "forceCalendar": 1825,
+          "rrule": 1825
+        },
+        "forceCalendar": {
+          "opsPerSec": 1831.1640369939653,
+          "avgMs": 0.5461007205239776,
+          "marginOfErrorMs": 0.00857468138167056,
+          "relativeMarginPercent": 1.5701648174796856,
+          "samples": 1832
+        },
+        "rrule": {
+          "opsPerSec": 8186.085581497285,
+          "avgMs": 0.12215850787832759,
+          "marginOfErrorMs": 0.0012190843997673644,
+          "relativeMarginPercent": 0.9979529227563894,
+          "samples": 8187
+        },
+        "speedup": 0.22369226643963744,
+        "winner": "rrule"
       }
     ]
-  },
-  "trigger": {
-    "event": "schedule",
-    "source": "manual/scheduled",
-    "runId": "29175991766",
-    "runUrl": "https://github.com/forceCalendar/benchmark/actions/runs/29175991766"
   }
 }

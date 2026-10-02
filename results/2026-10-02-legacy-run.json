@@ -1,0 +1,153 @@
+{
+  "timestamp": "2026-10-02T10:34:44.406Z",
+  "versions": {
+    "@forcecalendar/core": "2.5.6",
+    "@forcecalendar/interface": "1.9.0",
+    "@fullcalendar/core": "6.1.21",
+    "@fullcalendar/daygrid": "6.1.21",
+    "@fullcalendar/timegrid": "6.1.21",
+    "@fullcalendar/list": "6.1.21",
+    "@fullcalendar/rrule": "6.1.21",
+    "rrule": "2.8.1"
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "benchmarks": {
+    "bundleSize": {
+      "forceCalendar": [
+        {
+          "package": "@forcecalendar/core",
+          "version": "2.5.6",
+          "size": 699428
+        },
+        {
+          "package": "@forcecalendar/interface",
+          "version": "1.9.0",
+          "size": 1186324
+        }
+      ],
+      "fullCalendar": [
+        {
+          "package": "@fullcalendar/core",
+          "version": "6.1.21",
+          "size": 1877007
+        },
+        {
+          "package": "@fullcalendar/daygrid",
+          "version": "6.1.21",
+          "size": 202194
+        },
+        {
+          "package": "@fullcalendar/timegrid",
+          "version": "6.1.21",
+          "size": 237205
+        },
+        {
+          "package": "@fullcalendar/list",
+          "version": "6.1.21",
+          "size": 68293
+        },
+        {
+          "package": "@fullcalendar/rrule",
+          "version": "6.1.21",
+          "size": 26791
+        },
+        {
+          "package": "rrule",
+          "version": "2.8.1",
+          "size": 687245
+        }
+      ],
+      "totals": {
+        "forceCalendar": 1885752,
+        "fullCalendar": 3098735,
+        "ratio": 1.6432356958921428
+      }
+    },
+    "recurrence": [
+      {
+        "testCase": "Daily for 1 year",
+        "occurrences": {
+          "forceCalendar": 364,
+          "rrule": 364
+        },
+        "forceCalendar": {
+          "opsPerSec": 21132.70441686313,
+          "avgMs": 0.04732002020536644
+        },
+        "rrule": {
+          "opsPerSec": 46894.31596556922,
+          "avgMs": 0.021324546043793895
+        },
+        "speedup": 0.45
+      },
+      {
+        "testCase": "Weekly (MWF) for 1 year",
+        "occurrences": {
+          "forceCalendar": 155,
+          "rrule": 156
+        },
+        "forceCalendar": {
+          "opsPerSec": 41796.55396462093,
+          "avgMs": 0.023925417412317268
+        },
+        "rrule": {
+          "opsPerSec": 91946.33209354433,
+          "avgMs": 0.010875909644580713
+        },
+        "speedup": 0.45
+      },
+      {
+        "testCase": "Monthly (15th) for 5 years",
+        "occurrences": {
+          "forceCalendar": 60,
+          "rrule": 60
+        },
+        "forceCalendar": {
+          "opsPerSec": 17714.0474312382,
+          "avgMs": 0.05645237227018652
+        },
+        "rrule": {
+          "opsPerSec": 198742.8294787314,
+          "avgMs": 0.005031628072433253
+        },
+        "speedup": 0.09
+      },
+      {
+        "testCase": "Yearly for 10 years",
+        "occurrences": {
+          "forceCalendar": 9,
+          "rrule": 9
+        },
+        "forceCalendar": {
+          "opsPerSec": 220104.50410455934,
+          "avgMs": 0.004543296394902287
+        },
+        "rrule": {
+          "opsPerSec": 959302.9490888324,
+          "avgMs": 0.0010424235648913856
+        },
+        "speedup": 0.23
+      },
+      {
+        "testCase": "Daily for 5 years (1825 occurrences)",
+        "occurrences": {
+          "forceCalendar": 1824,
+          "rrule": 1824
+        },
+        "forceCalendar": {
+          "opsPerSec": 4086.12831850397,
+          "avgMs": 0.24473044458039048
+        },
+        "rrule": {
+          "opsPerSec": 9147.888350023595,
+          "avgMs": 0.10931484532137088
+        },
+        "speedup": 0.45
+      }
+    ]
+  }
+}

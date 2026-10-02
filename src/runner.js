@@ -16,6 +16,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
+import { cpus } from 'node:os';
 
 import { runBenchmark as runBundleSize } from './benchmarks/bundle-size.js';
 import { runBenchmark as runRecurrence } from './benchmarks/recurrence.js';
@@ -81,6 +82,10 @@ async function main() {
       node: process.version,
       platform: process.platform,
       arch: process.arch,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      cpu: cpus()[0]?.model,
+      logicalCpus: cpus().length,
+      recurrenceMethod: 'RecurrenceEngineV2 vs rrule; UTC timestamp parity; cold instance and warm cache modes',
     },
     benchmarks: {},
   };
@@ -102,6 +107,7 @@ async function main() {
     } catch (error) {
       console.error(`Error in ${benchmark.name}:`, error.message);
       results.benchmarks[benchmark.name] = { error: error.message };
+      process.exitCode = 1;
     }
   }
 
@@ -138,12 +144,12 @@ function printSummary(results) {
   // Recurrence
   const recurrence = results.benchmarks.recurrence;
   if (Array.isArray(recurrence) && recurrence.length > 0) {
-    const faster = recurrence.filter(r => r.speedup > 1).length;
-    const slower = recurrence.filter(r => r.speedup < 1).length;
+    const faster = recurrence.filter(r => r.winner === 'forceCalendar').length;
+    const slower = recurrence.filter(r => r.winner === 'rrule').length;
     console.log(`Recurrence: ForceCalendar faster in ${faster}/${recurrence.length} tests`);
   }
 
   console.log('');
 }
 
-main().catch(console.error);
+main().catch(error => { console.error(error); process.exitCode = 1; });
