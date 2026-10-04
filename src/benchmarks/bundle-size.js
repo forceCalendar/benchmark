@@ -1,7 +1,7 @@
 /**
  * Bundle Size Comparison
  *
- * Compares installed node_modules size for equivalent functionality:
+ * Compares installed node_modules size for the selected package stacks:
  * - ForceCalendar: core + interface (full stack)
  * - FullCalendar: core + daygrid + timegrid + list + rrule plugin + rrule lib
  */
@@ -58,7 +58,7 @@ async function runBenchmark() {
   console.log('='.repeat(60));
   console.log('');
   console.log('Measuring installed node_modules size for each package.');
-  console.log('Comparing full stacks for equivalent calendar functionality.');
+  console.log('Comparing selected package stacks; feature parity is not measured.');
   console.log('');
 
   // ForceCalendar stack
@@ -67,7 +67,7 @@ async function runBenchmark() {
     '@forcecalendar/interface',
   ];
 
-  // FullCalendar stack (equivalent functionality)
+  // Selected FullCalendar package stack (not a feature-parity assertion)
   const fullCalendarPackages = [
     '@fullcalendar/core',
     '@fullcalendar/daygrid',

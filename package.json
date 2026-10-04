@@ -8,19 +8,20 @@
     "benchmark:bundle": "node src/benchmarks/bundle-size.js",
     "benchmark:recurrence": "node src/benchmarks/recurrence.js",
     "update-dashboard": "node src/update-dashboard.js",
-    "benchmark:full": "npm run benchmark && npm run update-dashboard"
+    "benchmark:full": "npm run benchmark && npm run update-dashboard",
+    "test": "node --test"
   },
   "dependencies": {
     "@forcecalendar/core": "2.5.7",
-    "@forcecalendar/interface": "1.9.0",
-    "@fullcalendar/core": "^6.1.21",
-    "@fullcalendar/daygrid": "^6.1.0",
-    "@fullcalendar/list": "^6.1.0",
-    "@fullcalendar/rrule": "^6.1.0",
-    "@fullcalendar/timegrid": "^6.1.0",
-    "rrule": "^2.7.0"
+    "@forcecalendar/interface": "1.9.1",
+    "@fullcalendar/core": "6.1.21",
+    "@fullcalendar/daygrid": "6.1.21",
+    "@fullcalendar/list": "6.1.21",
+    "@fullcalendar/rrule": "6.1.21",
+    "@fullcalendar/timegrid": "6.1.21",
+    "rrule": "2.8.1"
   },
   "devDependencies": {
-    "tinybench": "^2.6.0"
+    "tinybench": "2.9.0"
   }
 }

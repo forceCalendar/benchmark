@@ -1,0 +1,313 @@
+{
+  "verifiedAt": "2026-10-04T03:22:51.744Z",
+  "benchmarkTimestamp": "2026-10-04T03:19:42.406Z",
+  "baseCommit": "337818cbb0b5dfcb2314033c439b318565c6224a",
+  "packages": {
+    "core": {
+      "version": "2.5.7",
+      "gitHead": "5ab4dfe83000c81c885205858a427ba690e3e2f8",
+      "dist": {
+        "shasum": "20649cb6fb2784c7a7b2095b4d6e4c70a2debd7f",
+        "tarball": "https://registry.npmjs.org/@forcecalendar/core/-/core-2.5.7.tgz",
+        "fileCount": 47,
+        "integrity": "sha512-u8R8oIl0GfcFDN/v8EELA/lebMaqjv/pfbyEFweaBumN1DcaQzCC/2BpcXoUkHINzDILnNVSf/pITHZsdA4Png==",
+        "signatures": [
+          {
+            "sig": "MEQCIEC9ji0s16jfOai5DGDPQFmG8wD1gc6itqZNX152dpYTAiAO98KYI7oCs42yOrSnG3FIKsQJl9ZfBrqpB3rl9OzuHQ==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          },
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIFN1OVepWKIQfJBS5nu2TxUgXCcljnOixOa2/fsoZx5/AiEAjo90sYlKVqRfOhCc/Um2XTC0l/Isao6PJG0bUb7esn0="
+          }
+        ],
+        "attestations": {
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/@forcecalendar%2fcore@2.5.7",
+          "provenance": {
+            "predicateType": "https://slsa.dev/provenance/v1"
+          }
+        },
+        "unpackedSize": 707048
+      }
+    },
+    "interface": {
+      "version": "1.9.1",
+      "gitHead": "d2f5749d96740e99c970cb5d8a58abdb27542b01",
+      "dist": {
+        "shasum": "4b7da08cc006f912d10591b2356e0a9b400fbb85",
+        "tarball": "https://registry.npmjs.org/@forcecalendar/interface/-/interface-1.9.1.tgz",
+        "fileCount": 43,
+        "integrity": "sha512-WK032iXIWXhL57KfRR2cJPz80FdwgkrmSnxoFyWsGnj/IgFy5I1bIcUv+YGrrsd76I+OeiCWLAZWqOHmtpYCMw==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDXXVzeoIEMNt+xCCNN1ahqg3PlJc41WVNFxMgBVWiReAIhALe1sclaaPHyawbNuI/iK/MIc+y2TxKZtCaJMSM5lamw",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          },
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCICbd9l7QziapnpWdpD6H9Y0K5oxp5uooy+OC6yP2CT3wAiEArGnbJ+iL2qCkyWKSC9QOAoCIBwdm+F7CWwUjFZSdul4="
+          }
+        ],
+        "attestations": {
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/@forcecalendar%2finterface@1.9.1",
+          "provenance": {
+            "predicateType": "https://slsa.dev/provenance/v1"
+          }
+        },
+        "unpackedSize": 1187286
+      }
+    }
+  },
+  "lockfiles": {
+    "package-lock.json": {
+      "sha256": "562ae2414c2b222cfd625e11a112c89290a99abb54be12527c4dff7b295199b0"
+    },
+    "www/package-lock.json": {
+      "sha256": "b02fa23706c29b58c511f23f8ed4737a2c44f949c8374cd534f676f0be7585b4"
+    }
+  },
+  "audits": {
+    "benchmark": {
+      "command": "npm audit --json",
+      "auditReportVersion": 2,
+      "vulnerabilities": {},
+      "metadata": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 0,
+          "critical": 0,
+          "total": 0
+        },
+        "dependencies": {
+          "prod": 11,
+          "dev": 1,
+          "optional": 0,
+          "peer": 0,
+          "peerOptional": 0,
+          "total": 11
+        }
+      }
+    },
+    "dashboard": {
+      "command": "npm --prefix www audit --json",
+      "auditReportVersion": 2,
+      "vulnerabilities": {
+        "braces": {
+          "name": "braces",
+          "severity": "high",
+          "isDirect": false,
+          "via": [
+            {
+              "source": 1240992,
+              "name": "braces",
+              "dependency": "braces",
+              "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+              "url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+              "severity": "high",
+              "cwe": [
+                "CWE-674"
+              ],
+              "cvss": {
+                "score": 7.5,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+              },
+              "range": "<=3.0.3"
+            }
+          ],
+          "effects": [
+            "chokidar",
+            "micromatch"
+          ],
+          "range": "*",
+          "nodes": [
+            "node_modules/braces"
+          ],
+          "fixAvailable": {
+            "name": "tailwindcss",
+            "version": "4.3.3",
+            "isSemVerMajor": true
+          }
+        },
+        "chokidar": {
+          "name": "chokidar",
+          "severity": "high",
+          "isDirect": false,
+          "via": [
+            "braces"
+          ],
+          "effects": [
+            "tailwindcss"
+          ],
+          "range": "2.0.0 - 3.6.0",
+          "nodes": [
+            "node_modules/chokidar"
+          ],
+          "fixAvailable": {
+            "name": "tailwindcss",
+            "version": "4.3.3",
+            "isSemVerMajor": true
+          }
+        },
+        "fast-glob": {
+          "name": "fast-glob",
+          "severity": "high",
+          "isDirect": false,
+          "via": [
+            "micromatch"
+          ],
+          "effects": [],
+          "range": "*",
+          "nodes": [
+            "node_modules/fast-glob"
+          ],
+          "fixAvailable": true
+        },
+        "micromatch": {
+          "name": "micromatch",
+          "severity": "high",
+          "isDirect": false,
+          "via": [
+            "braces"
+          ],
+          "effects": [
+            "fast-glob",
+            "tailwindcss"
+          ],
+          "range": ">=0.2.0",
+          "nodes": [
+            "node_modules/micromatch"
+          ],
+          "fixAvailable": {
+            "name": "tailwindcss",
+            "version": "4.3.3",
+            "isSemVerMajor": true
+          }
+        },
+        "tailwindcss": {
+          "name": "tailwindcss",
+          "severity": "high",
+          "isDirect": true,
+          "via": [
+            "chokidar",
+            "fast-glob",
+            "micromatch"
+          ],
+          "effects": [],
+          "range": "<=0.0.0-oxide-insiders.ff2c25f || 2.1.0-canary.1 - 3.4.19",
+          "nodes": [
+            "node_modules/tailwindcss"
+          ],
+          "fixAvailable": {
+            "name": "tailwindcss",
+            "version": "4.3.3",
+            "isSemVerMajor": true
+          }
+        }
+      },
+      "metadata": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 5,
+          "critical": 0,
+          "total": 5
+        },
+        "dependencies": {
+          "prod": 19,
+          "dev": 76,
+          "optional": 40,
+          "peer": 0,
+          "peerOptional": 0,
+          "total": 133
+        }
+      }
+    },
+    "dashboardProduction": {
+      "command": "npm --prefix www audit --omit=dev --json",
+      "auditReportVersion": 2,
+      "vulnerabilities": {},
+      "metadata": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 0,
+          "critical": 0,
+          "total": 0
+        },
+        "dependencies": {
+          "prod": 19,
+          "dev": 76,
+          "optional": 40,
+          "peer": 0,
+          "peerOptional": 0,
+          "total": 133
+        }
+      }
+    }
+  },
+  "signatures": {
+    "command": "npm audit signatures",
+    "exitCode": 0,
+    "packagesVerified": 11,
+    "attestationsVerified": 2
+  },
+  "checks": {
+    "hostParity": {
+      "passed": 40,
+      "timezones": [
+        "UTC",
+        "America/Los_Angeles",
+        "Asia/Kolkata",
+        "Australia/Melbourne"
+      ],
+      "scope": "Five UTC recurrence patterns, cold and warm, on each host; not full timezone correctness"
+    },
+    "timedScenarios": {
+      "passed": 10,
+      "hostTimezone": "UTC"
+    },
+    "artifactTests": {
+      "command": "npm test",
+      "passed": 4
+    },
+    "dashboardBuild": {
+      "command": "npm --prefix www run build",
+      "status": "passed",
+      "next": "16.3.8",
+      "warning": "Next inferred parent workspace root from multiple lockfiles"
+    },
+    "staticHtml": {
+      "status": "passed",
+      "checks": [
+        "package versions",
+        "run timestamp",
+        "development advisory",
+        "timezone limitations",
+        "recurrence rows",
+        "anchor targets",
+        "two chart canvases"
+      ]
+    },
+    "dashboardLint": {
+      "command": "npm --prefix www run lint",
+      "status": "failed",
+      "reason": "Existing script invokes next lint, which Next 16 treats as an invalid directory"
+    },
+    "browserVisual": {
+      "status": "blocked",
+      "reason": "Cloud browser refused http://127.0.0.1:8042 with net::ERR_BLOCKED_BY_CLIENT; no local visual or hydration result claimed"
+    }
+  },
+  "limitations": [
+    "Shared virtualized AMD EPYC host; prior Oct2 measurement used Intel Xeon, so ratios are not a release-to-release performance comparison.",
+    "Cold means new library instances, not cold process/timezone caches.",
+    "ForceCalendar returns full events and rrule returns Dates; allocation costs differ.",
+    "Installed footprint includes source/declarations/maps and is neither browser transfer size nor feature parity.",
+    "No workflow, security configuration, dependency remediation, merge or production deployment changes.",
+    "No new Snyk, CSP, penetration, broad timezone or full RFC conformance assessment."
+  ]
+}

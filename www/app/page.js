@@ -88,6 +88,19 @@ export default function Home() {
           </div>
         </section>
 
+        <section aria-label="Dated verification notes">
+          <div className="panel px-5 py-4 text-sm text-slate-500 dark:text-slate-400 space-y-2">
+            <p>
+              <strong className="text-slate-700 dark:text-slate-300">4 October 2026 dependency check:</strong>{' '}
+              the benchmark package lock reports no known npm advisories. The dashboard lock reports 5 high-severity development-tool findings through braces/Tailwind, and zero in its production-only audit. These are dependency checks, not a security certification.
+            </p>
+            <p>
+              <a href="https://github.com/forceCalendar/benchmark/tree/master/results" className="underline">Raw results, dated verification notes and preserved earlier runs</a>.{' '}
+              <a href="https://github.com/advisories/GHSA-vfj7-8cjw-p6xm" className="underline">Development-tool advisory</a>.
+            </p>
+          </div>
+        </section>
+
         {/* Package Versions */}
         <section id="packages">
           <div className="section-label">Tested Packages</div>
@@ -197,7 +210,7 @@ export default function Home() {
               <p className="text-xs text-slate-400 dark:text-slate-500">
                 Installed size measured via <span className="mono text-xs text-slate-600 dark:text-slate-400">du -sb node_modules/package</span>.
                 All packages installed from npm, not local builds.
-                ForceCalendar ships core + interface for equivalent functionality to FullCalendar&apos;s multi-package stack.
+                The selected package stacks include source, declarations and maps; this is not browser transfer size or a claim of feature parity.
               </p>
             </div>
           </div>
@@ -212,7 +225,7 @@ export default function Home() {
                 ForceCalendar&apos;s built-in <span className="mono text-xs text-slate-700 dark:text-slate-300">RecurrenceEngineV2</span> vs
                 the standalone <span className="mono text-xs text-slate-700 dark:text-slate-300">rrule</span> library (v{versions?.rrule}).
                 Both process the same UTC recurrence rules; every occurrence timestamp is checked before timing. Cold means new engine instances, warm means repeated cached queries. ForceCalendar returns event objects; rrule returns Dates, so allocation costs differ.
-                Higher ops/sec is better. Overlapping reported sample uncertainty is labelled inconclusive. These measurements cover the listed UTC rules. Core 2.5.7 fixes the reproduced cross-host recurrence drift; legacy timezone-conversion metadata and instance-override limitations remain documented separately.
+                Higher ops/sec is better. Overlapping reported sample uncertainty is labelled inconclusive. These measurements cover the listed UTC rules. Passing these cases does not establish full timezone or RFC correctness. Core 2.5.7 fixes the reproduced cross-host recurrence drift; legacy timezone-conversion metadata and instance-override limitations remain in the <a href="https://github.com/forceCalendar/core/blob/v2.5.7/docs/recurrence-timezones.md" className="underline">timezone contract</a>.
               </p>
               {recurrenceWins.fc < recurrenceWins.rrule && (
                 <p className="text-sm text-slate-400 dark:text-slate-500 mt-3">
@@ -283,7 +296,7 @@ export default function Home() {
                 <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
                   <li className="flex items-start gap-2">
                     <span className="text-emerald-500 mt-0.5 shrink-0">+</span>
-                    <span><strong className="text-slate-700 dark:text-slate-300">Bundle size</strong> -- installed node_modules footprint for equivalent calendar functionality</span>
+                    <span><strong className="text-slate-700 dark:text-slate-300">Bundle size</strong> -- installed node_modules footprint for the selected package stacks</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-emerald-500 mt-0.5 shrink-0">+</span>
@@ -322,11 +335,11 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-slate-300 dark:text-slate-600 mt-0.5 shrink-0">2.</span>
-                  <span><strong className="text-slate-700 dark:text-slate-300">Recurrence</strong> is benchmarked with <a href="https://github.com/tinylibs/tinybench" className="text-slate-700 dark:text-slate-300 underline decoration-slate-300 dark:decoration-slate-600 hover:text-slate-900 dark:hover:text-slate-100">tinybench</a>, which runs each function through a warmup phase then measures operations per second over multiple iterations. Tests assert complete UTC timestamp parity before timing. Cold runs create new instances for both libraries; warm runs reuse cached results. ForceCalendar V2 returns event objects while rrule returns Dates. Patterns: daily (365 and 1825), weekly MWF (156), monthly on the 15th (60), and yearly (10).</span>
+                  <span><strong className="text-slate-700 dark:text-slate-300">Recurrence</strong> is benchmarked with <a href="https://github.com/tinylibs/tinybench" className="text-slate-700 dark:text-slate-300 underline decoration-slate-300 dark:decoration-slate-600 hover:text-slate-900 dark:hover:text-slate-100">tinybench</a>, which runs each function through a warmup phase then measures operations per second over multiple iterations. Tests assert complete UTC timestamp parity before timing. Cold runs create new instances for both libraries, but shared process/timezone caches remain warm; warm runs reuse cached results. ForceCalendar V2 returns event objects while rrule returns Dates. Patterns: daily (365 and 1825), weekly MWF (156), monthly on the 15th (60), and yearly (10).</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-slate-300 dark:text-slate-600 mt-0.5 shrink-0">3.</span>
-                  <span><strong className="text-slate-700 dark:text-slate-300">Automation</strong> — benchmarks re-run automatically via GitHub Actions on every release and weekly on Sundays. Results are committed to the repository and this dashboard updates on each push.</span>
+                  <span><strong className="text-slate-700 dark:text-slate-300">Published evidence</strong> — this release comparison is manually verified with exact package pins. A separate existing workflow schedules runs and listens for release events; check the package versions and run date above rather than assuming every new release is represented.</span>
                 </li>
               </ul>
             </div>

@@ -6,7 +6,7 @@ Honest, reproducible performance benchmarks: **forceCalendar vs FullCalendar** (
 
 ## What we measure
 
-- **Bundle size** — installed size of the full forceCalendar stack (`@forcecalendar/core` + `@forcecalendar/interface`) vs the equivalent FullCalendar stack (core + daygrid + timegrid + list + rrule plugin + rrule)
+- **Bundle size** — installed size of the full forceCalendar stack (`@forcecalendar/core` + `@forcecalendar/interface`) vs the selected FullCalendar stack (core + daygrid + timegrid + list + rrule plugin + rrule)
 - **Recurrence expansion** — RFC 5545 RRULE scenarios (daily, weekly, monthly, yearly, multi-year) measured with [tinybench](https://github.com/tinylibs/tinybench), ops/sec and average latency
 
 We deliberately **do not** benchmark rendering or memory: `@forcecalendar/core` is DOM-free, so a rendering comparison against a full-UI library would not be apples-to-apples.
@@ -14,7 +14,7 @@ We deliberately **do not** benchmark rendering or memory: `@forcecalendar/core` 
 ## Run it yourself
 
 ```bash
-npm install
+npm ci --ignore-scripts
 npm run benchmark          # runs all suites, writes results/latest.json
 npm run update-dashboard   # regenerates www/data/benchmarkResults.js
 npm run benchmark:full     # both
@@ -24,7 +24,7 @@ Results include exact package versions and environment info (Node version, platf
 
 ## Dashboard
 
-`www/` contains a static Next.js + Chart.js dashboard that visualizes `results/latest.json`. Benchmarks re-run automatically when `@forcecalendar/core` publishes a release (via `repository_dispatch`).
+`www/` contains a static Next.js + Chart.js dashboard that visualizes `results/latest.json`. An existing workflow listens for release events and schedules weekly runs. It currently updates core/comparison selectors but does not advance the Interface pin; a release event alone does not prove that release is reflected in the dashboard. Always inspect recorded versions and dates. This refresh does not change that workflow.
 
 ## Contributing
 
@@ -43,3 +43,11 @@ Reproduce the pinned release comparison with `npm ci`, `TZ=UTC npm run benchmark
 Earlier results used the legacy engine, mixed cached and uncached workloads, and timezone-dependent fixtures. They are historical evidence and are superseded by this methodology; do not compare their ratios directly. Installed footprint is not minified or gzip browser transfer size.
 
 Results record sample counts and the runner's reported margin of error. The dashboard calls a comparison inconclusive when mean-latency uncertainty intervals overlap. Shared-host timing can vary; ratios are workload-specific observations, not general speed guarantees.
+
+## 4 October 2026 evidence refresh
+
+The current comparison pins Core **2.5.7**, Interface **1.9.1**, the FullCalendar packages **6.1.21**, `rrule` **2.8.1**, and `tinybench` **2.9.0**. See [dated verification and limitations](results/2026-10-04-methodology.md). The previous Core 2.5.7 / Interface 1.9.0 run is preserved in [its dated archive](results/2026-10-02-core-2.5.7-interface-1.9.0.json).
+
+After regenerating data, run `npm test` to check exact version consistency, complete measurements, uncertainty-based winners, and raw/dashboard agreement. The recurrence fixture gate remains separate from these artifact checks.
+
+The 4 October dashboard dependency audit has **5 high development-tool findings** through braces/Tailwind; its production-only audit and the benchmark dependency audit report zero. Earlier zero-advisory results are dated historical checks, not a statement about current dependency security. No dependency remediation or security/workflow changes are included in this refresh.
