@@ -1,20 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useSyncExternalStore } from 'react';
+import { getServerThemeSnapshot, getThemeSnapshot, subscribeToThemeChange } from './theme-store.mjs';
 
 export default function ThemeToggle() {
-  const [dark, setDark] = useState(false);
-
-  useEffect(() => {
-    const stored = localStorage.getItem('benchmark-theme');
-    const isDark = stored === 'dark';
-    setDark(isDark);
-    document.documentElement.classList.toggle('dark', isDark);
-  }, []);
+  const dark = useSyncExternalStore(subscribeToThemeChange, getThemeSnapshot, getServerThemeSnapshot);
 
   const toggle = () => {
-    const next = !dark;
-    setDark(next);
+    const next = !getThemeSnapshot();
     document.documentElement.classList.toggle('dark', next);
     localStorage.setItem('benchmark-theme', next ? 'dark' : 'light');
   };
