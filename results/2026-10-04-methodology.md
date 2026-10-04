@@ -19,7 +19,7 @@ Environment: Linux x64, Node 24.19.0, npm 11.9.0, AMD EPYC 9V74, 9 exposed logic
 ## Results and checks
 
 - [Dated raw results](2026-10-04-core-2.5.7-interface-1.9.1.json) and `latest.json` contain the same run, including sample counts, mean latency, reported margins of error, losses and package versions.
-- All 10 scenario/cache-mode gates matched every UTC start timestamp and expected occurrence count before timing. The parity-only gate also passed in UTC, America/Los_Angeles, Asia/Kolkata and Australia/Melbourne: **40 checks**. The fixtures remain UTC events even when the host timezone changes.
+- All 10 timestamp-correctness checks matched every UTC start timestamp and expected occurrence count before timing. The parity-only gate also passed in UTC, America/Los_Angeles, Asia/Kolkata and Australia/Melbourne: **40 checks**. The fixtures remain UTC events even when the host timezone changes.
 - Installed selected-package footprint: **1,894,334 bytes** for Core + Interface, versus **3,098,735 bytes** for the selected FullCalendar + plugins + rrule stack, a **1.636x** ratio. This includes source, declarations, maps and directory metadata. It is not a browser-transfer measurement or a claim of feature parity.
 - **4 artifact tests pass**: exact version/lock consistency, complete finite measurements and uncertainty-based winners, complete package totals, and faithful raw-to-dashboard transformation including losses.
 - The final static Next.js **16.3.8** build passes. Exported HTML checks pass for the release versions, timestamp, advisory and limitation text, recurrence rows, valid section anchors and two chart canvases.
@@ -30,7 +30,7 @@ Environment: Linux x64, Node 24.19.0, npm 11.9.0, AMD EPYC 9V74, 9 exposed logic
 
 - Benchmark dependency audit: **0 known npm vulnerabilities**.
 - Benchmark signature verification: **11 verified registry signatures**, **2 verified attestations**, exit code 0.
-- Dashboard full dependency audit: **5 high-severity findings** in the development-tool graph (`braces`, `chokidar`, `fast-glob`, `micromatch`, `tailwindcss`). These share the upstream [braces stack-exhaustion advisory GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm).
+- Dashboard full dependency audit: **5 high-severity affected development/build package entries from one distinct advisory** in the development-tool graph (`braces`, `chokidar`, `fast-glob`, `micromatch`, `tailwindcss`). These share the upstream [braces stack-exhaustion advisory GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm).
 - Dashboard production-only dependency audit: **0 known npm vulnerabilities**. This does not dismiss the build-tool exposure or constitute a security certification. No dependency remediation, major Tailwind migration, new Snyk run, CSP assessment or penetration test was performed.
 
 Historical zero-advisory results in the 2 October report describe the checks performed then. They are not current assurance.
@@ -50,7 +50,7 @@ npm audit signatures
 cd www
 npm ci --ignore-scripts
 npm run build
-npm audit --json                 # currently exits 1: five high development findings
+npm audit --json                 # currently exits 1: five affected entries from one high advisory
 npm audit --omit=dev --json      # currently exits 0
 npm run lint                    # currently fails: existing unsupported next lint script
 ```

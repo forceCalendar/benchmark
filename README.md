@@ -50,4 +50,4 @@ The current comparison pins Core **2.5.7**, Interface **1.9.1**, the FullCalenda
 
 After regenerating data, run `npm test` to check exact version consistency, complete measurements, uncertainty-based winners, and raw/dashboard agreement. The recurrence fixture gate remains separate from these artifact checks.
 
-The 4 October dashboard dependency audit has **5 high development-tool findings** through braces/Tailwind; its production-only audit and the benchmark dependency audit report zero. Earlier zero-advisory results are dated historical checks, not a statement about current dependency security. No dependency remediation or security/workflow changes are included in this refresh.
+The 4 October dashboard dependency audit has **5 high-severity affected development/build package entries from one distinct braces advisory** through Tailwind; its production-only audit and the benchmark dependency audit report zero. Earlier zero-advisory results are dated historical checks, not a statement about current dependency security. No dependency remediation or security/workflow changes are included in this refresh.
