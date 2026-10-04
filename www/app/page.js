@@ -92,7 +92,7 @@ export default function Home() {
           <div className="panel px-5 py-4 text-sm text-slate-500 dark:text-slate-400 space-y-2">
             <p>
               <strong className="text-slate-700 dark:text-slate-300">4 October 2026 dependency check:</strong>{' '}
-              the benchmark package lock reports no known npm advisories. The dashboard lock reports 5 high-severity affected development/build package entries from one distinct braces advisory through Tailwind, and zero in its production-only audit. These are dependency checks, not a security certification.
+              the benchmark package lock reports no known npm advisories. The dashboard lock reports 6 high-severity affected development/build package entries from one distinct braces advisory through Tailwind and the Next lint plugin, and zero in its production-only audit. These are dependency checks, not a security certification.
             </p>
             <p>
               <a href="https://github.com/forceCalendar/benchmark/tree/master/results" className="underline">Raw results, dated verification notes and preserved earlier runs</a>.{' '}

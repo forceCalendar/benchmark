@@ -21,16 +21,17 @@ Environment: Linux x64, Node 24.19.0, npm 11.9.0, AMD EPYC 9V74, 9 exposed logic
 - [Dated raw results](2026-10-04-core-2.5.7-interface-1.9.1.json) and `latest.json` contain the same run, including sample counts, mean latency, reported margins of error, losses and package versions.
 - All 10 timestamp-correctness checks matched every UTC start timestamp and expected occurrence count before timing. The parity-only gate also passed in UTC, America/Los_Angeles, Asia/Kolkata and Australia/Melbourne: **40 checks**. The fixtures remain UTC events even when the host timezone changes.
 - Installed selected-package footprint: **1,894,334 bytes** for Core + Interface, versus **3,098,735 bytes** for the selected FullCalendar + plugins + rrule stack, a **1.636x** ratio. This includes source, declarations, maps and directory metadata. It is not a browser-transfer measurement or a claim of feature parity.
-- **4 artifact tests pass**: exact version/lock consistency, complete finite measurements and uncertainty-based winners, complete package totals, and faithful raw-to-dashboard transformation including losses.
+- **7 tests pass**: four artifact checks cover exact version/lock consistency, complete finite measurements and uncertainty-based winners, complete package totals, and faithful raw-to-dashboard transformation including losses. Three additional tests cover the theme server/client snapshots and subscription cleanup.
 - The final static Next.js **16.3.8** build passes. Exported HTML checks pass for the release versions, timestamp, advisory and limitation text, recurrence rows, valid section anchors and two chart canvases.
-- `npm run lint` in `www/` **fails**: its existing `next lint` script is unsupported by the installed Next version and is interpreted as a directory. No successful lint result is claimed. Build also emits the existing multiple-lockfile/workspace-root warning; npm emits an environment `http-proxy` configuration warning.
+- `npm run lint` in `www/` now **passes with zero errors and one existing root-layout custom-font warning**. The removed `next lint` command was replaced by supported ESLint 10.12.0, core JavaScript recommended rules, the official Next 16.3.8 Core Web Vitals plugin and React Hooks 7.1.1 recommended rules. These selected presets do not claim the full `eslint-config-next` React/accessibility/import-rule coverage. The full Next config currently includes `eslint-plugin-react` with a peer range ending at ESLint 9, now end-of-life. ESLint 10 tracks JSX references natively. A theme initialization effect was replaced by `useSyncExternalStore` with explicit server and document-class snapshots. Build still emits the existing multiple-lockfile/workspace-root warning; npm emits an environment `http-proxy` configuration warning.
 - Local visual/hydration verification is **blocked**: the cloud browser refused the local static server URL with `net::ERR_BLOCKED_BY_CLIENT`. Static output checks are not browser execution tests. No authentication or access setting was changed to bypass this.
 
 ## Dependency checks, dated 4 October
 
 - Benchmark dependency audit: **0 known npm vulnerabilities**.
 - Benchmark signature verification: **11 verified registry signatures**, **2 verified attestations**, exit code 0.
-- Dashboard full dependency audit: **5 high-severity affected development/build package entries from one distinct advisory** in the development-tool graph (`braces`, `chokidar`, `fast-glob`, `micromatch`, `tailwindcss`). These share the upstream [braces stack-exhaustion advisory GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm).
+- Dashboard full dependency audit: **6 high-severity affected development/build package entries from one distinct advisory** in the development-tool graph (`@next/eslint-plugin-next`, `braces`, `chokidar`, `fast-glob`, `micromatch`, `tailwindcss`). These share the upstream [braces stack-exhaustion advisory GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm).
+- Dashboard lint/toolchain signature verification: **215 verified registry signatures**, **63 verified attestations**, exit code 0. None of the pre-existing resolved package versions changed; only the requested lint toolchain was added. The initial five-entry audit is preserved in the verification JSON. Adding the Next lint plugin contributes one more affected path to the same advisory.
 - Dashboard production-only dependency audit: **0 known npm vulnerabilities**. This does not dismiss the build-tool exposure or constitute a security certification. No dependency remediation, major Tailwind migration, new Snyk run, CSP assessment or penetration test was performed.
 
 Historical zero-advisory results in the 2 October report describe the checks performed then. They are not current assurance.
@@ -50,9 +51,9 @@ npm audit signatures
 cd www
 npm ci --ignore-scripts
 npm run build
-npm audit --json                 # currently exits 1: five affected entries from one high advisory
+npm audit --json                 # currently exits 1: six affected entries from one high advisory
 npm audit --omit=dev --json      # currently exits 0
-npm run lint                    # currently fails: existing unsupported next lint script
+npm run lint                    # passes: zero errors, one root-layout font warning
 ```
 
 ## Limitations and preserved history
@@ -64,3 +65,5 @@ Core 2.5.7's precise [recurrence timezone contract](https://github.com/forceCale
 The previous [Core 2.5.7 / Interface 1.9.0 raw run](2026-10-02-core-2.5.7-interface-1.9.0.json) is preserved byte-for-byte. Earlier [methodology notes](2026-10-02-methodology.md), Core 2.5.6 and legacy-harness runs remain unchanged. Legacy-harness ratios are not directly comparable.
 
 These October 4 results were regenerated manually. The existing workflow was not changed: it updates the core/comparison selectors, but does not advance the Interface pin. A release event is not proof that the dashboard contains that release. No merge, production deployment, workflow or security-configuration change is part of this refresh.
+
+Lint setup references: [Next ESLint CLI/plugin guidance](https://nextjs.org/docs/app/api-reference/config/eslint), [ESLint support status](https://eslint.org/version-support/), and [ESLint 10 JSX tracking](https://eslint.org/blog/2026/02/eslint-v10.0.0-released/).

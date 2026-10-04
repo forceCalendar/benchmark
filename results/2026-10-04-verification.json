@@ -63,7 +63,7 @@
       "sha256": "562ae2414c2b222cfd625e11a112c89290a99abb54be12527c4dff7b295199b0"
     },
     "www/package-lock.json": {
-      "sha256": "b02fa23706c29b58c511f23f8ed4737a2c44f949c8374cd534f676f0be7585b4"
+      "sha256": "077abd7686367c58241845fbef0b8790e702740e5f162f17cf0334db2a23c05a"
     }
   },
   "audits": {
@@ -91,6 +91,189 @@
       }
     },
     "dashboard": {
+      "command": "npm --prefix www audit --json",
+      "auditReportVersion": 2,
+      "vulnerabilities": {
+        "@next/eslint-plugin-next": {
+          "name": "@next/eslint-plugin-next",
+          "severity": "high",
+          "isDirect": true,
+          "via": [
+            "fast-glob"
+          ],
+          "effects": [],
+          "range": ">=14.3.0-canary.0",
+          "nodes": [
+            "node_modules/@next/eslint-plugin-next"
+          ],
+          "fixAvailable": {
+            "name": "@next/eslint-plugin-next",
+            "version": "14.2.35",
+            "isSemVerMajor": true
+          }
+        },
+        "braces": {
+          "name": "braces",
+          "severity": "high",
+          "isDirect": false,
+          "via": [
+            {
+              "source": 1240992,
+              "name": "braces",
+              "dependency": "braces",
+              "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+              "url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+              "severity": "high",
+              "cwe": [
+                "CWE-674"
+              ],
+              "cvss": {
+                "score": 7.5,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+              },
+              "range": "<=3.0.3"
+            }
+          ],
+          "effects": [
+            "chokidar",
+            "micromatch"
+          ],
+          "range": "*",
+          "nodes": [
+            "node_modules/braces"
+          ],
+          "fixAvailable": {
+            "name": "tailwindcss",
+            "version": "4.3.3",
+            "isSemVerMajor": true
+          }
+        },
+        "chokidar": {
+          "name": "chokidar",
+          "severity": "high",
+          "isDirect": false,
+          "via": [
+            "braces"
+          ],
+          "effects": [
+            "tailwindcss"
+          ],
+          "range": "2.0.0 - 3.6.0",
+          "nodes": [
+            "node_modules/chokidar"
+          ],
+          "fixAvailable": {
+            "name": "tailwindcss",
+            "version": "4.3.3",
+            "isSemVerMajor": true
+          }
+        },
+        "fast-glob": {
+          "name": "fast-glob",
+          "severity": "high",
+          "isDirect": false,
+          "via": [
+            "micromatch"
+          ],
+          "effects": [
+            "@next/eslint-plugin-next"
+          ],
+          "range": "*",
+          "nodes": [
+            "node_modules/@next/eslint-plugin-next/node_modules/fast-glob",
+            "node_modules/fast-glob"
+          ],
+          "fixAvailable": {
+            "name": "@next/eslint-plugin-next",
+            "version": "14.2.35",
+            "isSemVerMajor": true
+          }
+        },
+        "micromatch": {
+          "name": "micromatch",
+          "severity": "high",
+          "isDirect": false,
+          "via": [
+            "braces"
+          ],
+          "effects": [
+            "fast-glob",
+            "tailwindcss"
+          ],
+          "range": ">=0.2.0",
+          "nodes": [
+            "node_modules/micromatch"
+          ],
+          "fixAvailable": {
+            "name": "tailwindcss",
+            "version": "4.3.3",
+            "isSemVerMajor": true
+          }
+        },
+        "tailwindcss": {
+          "name": "tailwindcss",
+          "severity": "high",
+          "isDirect": true,
+          "via": [
+            "chokidar",
+            "fast-glob",
+            "micromatch"
+          ],
+          "effects": [],
+          "range": "<=0.0.0-oxide-insiders.ff2c25f || 2.1.0-canary.1 - 3.4.19",
+          "nodes": [
+            "node_modules/tailwindcss"
+          ],
+          "fixAvailable": {
+            "name": "tailwindcss",
+            "version": "4.3.3",
+            "isSemVerMajor": true
+          }
+        }
+      },
+      "metadata": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 6,
+          "critical": 0,
+          "total": 6
+        },
+        "dependencies": {
+          "prod": 19,
+          "dev": 187,
+          "optional": 40,
+          "peer": 0,
+          "peerOptional": 0,
+          "total": 244
+        }
+      }
+    },
+    "dashboardProduction": {
+      "command": "npm --prefix www audit --omit=dev --json",
+      "auditReportVersion": 2,
+      "vulnerabilities": {},
+      "metadata": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 0,
+          "critical": 0,
+          "total": 0
+        },
+        "dependencies": {
+          "prod": 19,
+          "dev": 187,
+          "optional": 40,
+          "peer": 0,
+          "peerOptional": 0,
+          "total": 244
+        }
+      }
+    },
+    "dashboardBeforeLintSetup": {
       "command": "npm --prefix www audit --json",
       "auditReportVersion": 2,
       "vulnerabilities": {
@@ -224,29 +407,6 @@
           "total": 133
         }
       }
-    },
-    "dashboardProduction": {
-      "command": "npm --prefix www audit --omit=dev --json",
-      "auditReportVersion": 2,
-      "vulnerabilities": {},
-      "metadata": {
-        "vulnerabilities": {
-          "info": 0,
-          "low": 0,
-          "moderate": 0,
-          "high": 0,
-          "critical": 0,
-          "total": 0
-        },
-        "dependencies": {
-          "prod": 19,
-          "dev": 76,
-          "optional": 40,
-          "peer": 0,
-          "peerOptional": 0,
-          "total": 133
-        }
-      }
     }
   },
   "signatures": {
@@ -272,7 +432,9 @@
     },
     "artifactTests": {
       "command": "npm test",
-      "passed": 4
+      "passed": 7,
+      "artifactConsistency": 4,
+      "themeSnapshotsAndSubscription": 3
     },
     "dashboardBuild": {
       "command": "npm --prefix www run build",
@@ -294,12 +456,26 @@
     },
     "dashboardLint": {
       "command": "npm --prefix www run lint",
-      "status": "failed",
-      "reason": "Existing script invokes next lint, which Next 16 treats as an invalid directory"
+      "status": "passed",
+      "errors": 0,
+      "warnings": 1,
+      "warning": "@next/next/no-page-custom-font in the App Router root layout",
+      "eslint": "10.12.0",
+      "presets": [
+        "@eslint/js recommended 10.0.1",
+        "@next/eslint-plugin-next core-web-vitals 16.3.8",
+        "eslint-plugin-react-hooks recommended 7.1.1"
+      ],
+      "scope": "Selected supported presets, not full eslint-config-next React/accessibility/import-rule coverage"
     },
     "browserVisual": {
       "status": "blocked",
       "reason": "Cloud browser refused http://127.0.0.1:8042 with net::ERR_BLOCKED_BY_CLIENT; no local visual or hydration result claimed"
+    },
+    "dashboardLintBeforeRepair": {
+      "command": "npm --prefix www run lint",
+      "status": "failed",
+      "reason": "Existing script invokes next lint, which Next 16 treats as an invalid directory"
     }
   },
   "limitations": [
@@ -309,5 +485,19 @@
     "Installed footprint includes source/declarations/maps and is neither browser transfer size nor feature parity.",
     "No workflow, security configuration, dependency remediation, merge or production deployment changes.",
     "No new Snyk, CSP, penetration, broad timezone or full RFC conformance assessment."
-  ]
+  ],
+  "dashboardVerificationUpdatedAt": "2026-10-04T05:01:25.519Z",
+  "dashboardSignatures": {
+    "command": "npm --prefix www audit signatures",
+    "exitCode": 0,
+    "packagesVerified": 215,
+    "attestationsVerified": 63
+  },
+  "lintDependencyChange": {
+    "existingResolvedPackageVersionsChanged": 0,
+    "affectedDevelopmentBuildEntries": 6,
+    "distinctAdvisories": 1,
+    "advisory": "GHSA-vfj7-8cjw-p6xm",
+    "explanation": "Adding the official Next lint plugin contributes one affected dependency path; the original five-entry result is preserved."
+  }
 }

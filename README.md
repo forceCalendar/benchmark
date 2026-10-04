@@ -50,4 +50,10 @@ The current comparison pins Core **2.5.7**, Interface **1.9.1**, the FullCalenda
 
 After regenerating data, run `npm test` to check exact version consistency, complete measurements, uncertainty-based winners, and raw/dashboard agreement. The recurrence fixture gate remains separate from these artifact checks.
 
-The 4 October dashboard dependency audit has **5 high-severity affected development/build package entries from one distinct braces advisory** through Tailwind; its production-only audit and the benchmark dependency audit report zero. Earlier zero-advisory results are dated historical checks, not a statement about current dependency security. No dependency remediation or security/workflow changes are included in this refresh.
+The 4 October dashboard dependency audit has **6 high-severity affected development/build package entries from one distinct braces advisory** through Tailwind and the Next lint plugin; its production-only audit and the benchmark dependency audit report zero. Earlier zero-advisory results are dated historical checks, not a statement about current dependency security. No dependency remediation or security/workflow changes are included in this refresh.
+
+### Supported dashboard linting
+
+`npm --prefix www run lint` now runs ESLint **10.12.0** with core JavaScript recommended rules, the official Next **16.3.8** Core Web Vitals plugin, and React Hooks **7.1.1** recommended rules. These selected supported presets do not include the full `eslint-config-next` React, accessibility or import-rule suite. ESLint 10 natively tracks JSX references; the full Next config currently depends on `eslint-plugin-react` whose ESLint peer range stops at 9.
+
+Lint completes with zero errors and one existing root-layout custom-font warning. The theme toggle now subscribes to the document theme with `useSyncExternalStore`; three focused snapshot/subscription tests bring `npm test` to seven passing tests. The original five-entry dashboard advisory result is retained in the verification JSON; adding the Next lint plugin adds one affected path to the same braces advisory, not a second advisory.
